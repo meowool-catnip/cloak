@@ -6,12 +6,12 @@ on:
     - cron: '5 4 * * 3'
   pull_request:
     paths:
-      - 'api/benchmark/kotlin/**'
+      - 'api/src/benchmark/kotlin/**'
   push:
     branches:
       - main
     paths:
-      - 'api/benchmark/kotlin/**'
+      - 'api/src/benchmark/kotlin/**'
 
 jobs:
   test:
