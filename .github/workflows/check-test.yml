@@ -1,8 +1,9 @@
-name: "Benchmarking"
+name: "Checks and Tests"
 on:
+  pull_request:
   push:
-    paths:
-      - 'api/benchmark/kotlin/**'
+    branches:
+      - main
 
 jobs:
   test:

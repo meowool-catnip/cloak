@@ -1,5 +1,17 @@
 name: "Benchmarking"
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+  schedule:
+    # Run at 04:05 every Wednesday.
+    - cron: '5 4 * * 3'
+  pull_request:
+    paths:
+      - 'api/benchmark/kotlin/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'api/benchmark/kotlin/**'
 
 jobs:
   test:
@@ -16,5 +28,4 @@ jobs:
       - name: Running the tests
         uses: gradle/gradle-build-action@v1
         with:
-          gradle-version: wrapper
           arguments: benchmark
