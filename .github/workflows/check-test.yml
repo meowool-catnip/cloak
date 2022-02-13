@@ -33,6 +33,5 @@ jobs:
             test
             -x built-ins:generator:lint
             -PignoreFailures=true
-            -DmaxParallelForks=3
             --stacktrace
             --scan

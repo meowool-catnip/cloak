@@ -29,7 +29,7 @@ import org.openjdk.jmh.annotations.Param
 import org.openjdk.jmh.annotations.Scope
 import org.openjdk.jmh.annotations.Setup
 import org.openjdk.jmh.annotations.State
-import java.lang.reflect.Executable
+import java.lang.reflect.Member
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 
@@ -66,16 +66,16 @@ open class ReflectionObjectAccessTests {
   @Param("true", "false")
   var useConcurrentHashMap: Boolean = false
 
-  private lateinit var functionsCache: MutableMap<MemberCacheKey, Executable?>
-  private lateinit var functionsStringCache: MutableMap<String, Executable?>
+  private lateinit var membersCache: MutableMap<MemberCacheKey, Member?>
+  private lateinit var membersStringCache: MutableMap<String, Member?>
 
   @Setup fun init() {
     if (useConcurrentHashMap) {
-      functionsCache = ConcurrentHashMap()
-      functionsStringCache = ConcurrentHashMap()
+      membersCache = ConcurrentHashMap()
+      membersStringCache = ConcurrentHashMap()
     } else {
-      functionsCache = HashMap()
-      functionsStringCache = HashMap()
+      membersCache = HashMap()
+      membersStringCache = HashMap()
     }
   }
 
@@ -85,7 +85,7 @@ open class ReflectionObjectAccessTests {
   }
 
   @Benchmark fun getDeclaredConstructorWithCache() {
-    fun reflect(vararg params: Class<*>) = functionsCache.getOrPut(MemberCacheKey(Case::class.java, params)) {
+    fun reflect(vararg params: Class<*>) = membersCache.getOrPut(MemberCacheKey(Case::class.java, params)) {
       Case::class.java.getDeclaredConstructor(*params)
     }
 
@@ -95,7 +95,7 @@ open class ReflectionObjectAccessTests {
 
   @Benchmark fun getDeclaredConstructorWithStringCache() {
     fun reflect(vararg params: Class<*>) =
-      functionsStringCache.getOrPut(Case::class.java.name + params.contentToString()) {
+      membersStringCache.getOrPut(Case::class.java.name + params.contentToString()) {
         Case::class.java.getDeclaredConstructor(*params)
       }
 
@@ -110,7 +110,7 @@ open class ReflectionObjectAccessTests {
 
   @Benchmark fun getDeclaredMethodWithCache() {
     fun reflect(name: String, vararg params: Class<*>) =
-      functionsCache.getOrPut(MemberCacheKey(Case::class.java, name, params, null)) {
+      membersCache.getOrPut(MemberCacheKey(Case::class.java, name, params, null)) {
         Case::class.java.getDeclaredMethod(name, *params)
       }
 
@@ -120,12 +120,36 @@ open class ReflectionObjectAccessTests {
 
   @Benchmark fun getDeclaredMethodWithStringCache() {
     fun reflect(name: String, vararg params: Class<*>) =
-      functionsStringCache.getOrPut(Case::class.java.name + name + params.contentToString()) {
+      membersStringCache.getOrPut(Case::class.java.name + name + params.contentToString()) {
         Case::class.java.getDeclaredMethod(name, *params)
       }
 
     reflect("getA", Int::class.java)
     reflect("getB")
+  }
+
+  @Benchmark fun getDeclaredFieldDirectly() {
+    Case::class.java.getDeclaredField("a")
+    Case::class.java.getDeclaredField("b")
+  }
+
+  @Benchmark fun getDeclaredFieldWithCache() {
+    fun reflect(name: String) =
+      membersCache.getOrPut(MemberCacheKey(Case::class.java, name, null)) {
+        Case::class.java.getDeclaredField(name)
+      }
+
+    reflect("a")
+    reflect("b")
+  }
+
+  @Benchmark fun getDeclaredFieldWithStringCache() {
+    fun reflect(name: String) = membersStringCache.getOrPut(Case::class.java.name + name) {
+      Case::class.java.getDeclaredField(name)
+    }
+
+    reflect("a")
+    reflect("b")
   }
 
   @Benchmark fun filterDeclaredMethodDirectly() {
@@ -139,7 +163,7 @@ open class ReflectionObjectAccessTests {
 
   @Benchmark fun filterDeclaredMethodWithCache() {
     fun reflect(name: String, vararg params: Class<*>) =
-      functionsCache.getOrPut(MemberCacheKey(Case::class.java, name, params, null)) {
+      membersCache.getOrPut(MemberCacheKey(Case::class.java, name, params, null)) {
         Case::class.java.declaredMethods.first {
           it.name == name && it.parameterTypes.contentEquals(params)
         }
@@ -151,7 +175,7 @@ open class ReflectionObjectAccessTests {
 
   @Benchmark fun filterDeclaredMethodWithStringCache() {
     fun reflect(name: String, vararg params: Class<*>) =
-      functionsStringCache.getOrPut(Case::class.java.name + name + params.contentToString()) {
+      membersStringCache.getOrPut(Case::class.java.name + name + params.contentToString()) {
         Case::class.java.declaredMethods.first {
           it.name == name && it.parameterTypes.contentEquals(params)
         }
@@ -163,6 +187,9 @@ open class ReflectionObjectAccessTests {
 
   @Suppress("unused", "UNUSED_PARAMETER")
   private class Case {
+    private val a: Int = 0
+    private val b: Array<Cloneable> = emptyArray()
+
     constructor(a: Int, b: Boolean?)
     constructor(a: String, b: Array<Cloneable>)
 
