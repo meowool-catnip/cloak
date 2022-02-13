@@ -6,11 +6,13 @@ Basically, this directory is used to compare the reflection performance of **Clo
 
 ## Reference results
 
-You can find the results at the beginning comment of each benchmark class in the `kotlin` folder.
+You can find the results in the github workflow log or at the beginning comment of each benchmark class in the `kotlin` folder.
 
 > For example
 
-[ReflectionObjectAccessTests.kt](kotlin/com/meowool/cloak/ReflectionObjectAccessTests.kt#L37-L58)
+[Workflow log](https://github.com/meowool-catnip/cloak/runs/5175118885?check_suite_focus=true#step:4:562)
+
+https://github.com/meowool-catnip/cloak/blob/02cfcdf7f2cec9633d5af4df9e2861b6ad13a771/api/src/benchmark/kotlin/com/meowool/cloak/ReflectionObjectAccessTests.kt#L37-L58
 
 
 ## Running the tests
