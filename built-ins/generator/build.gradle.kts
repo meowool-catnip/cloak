@@ -18,36 +18,33 @@
  *
  * 如果您修改了此项目，则必须确保源文件中包含 Meowool 组织 URL: https://github.com/meowool
  */
-plugins {
-  kotlin
-  id(Plugins.KotlinX.Benchmark)
-//  id(Plugins.Meowool.Sweekt)
-}
+plugins { id(Plugins.Android.Junit5) }
 
-val benchmarks = "benchmark"
-
-tasks.test { useJUnitPlatform() }
-
-// Register benchmarks
-benchmark.targets.register(benchmarks)
-sourceSets.register(benchmarks) {
-  val test = sourceSets.test
-  runtimeClasspath += test.runtimeClasspath
-  compileClasspath += test.compileClasspath
-}
-
-kotlin {
-  // Solution: https://stackoverflow.com/a/59260030
-  target.compilations.apply {
-    get(benchmarks).associateWith(get(SourceSet.MAIN_SOURCE_SET_NAME))
+androidKotlinLib {
+  sourceSets {
+    main {
+      java.srcDir("sources")
+      resources.srcDir("resources")
+      manifest.srcFile("AndroidManifest.xml")
+    }
+    arrayOf("jvm.src", "android.src").forEach {
+      // Get and save the paths of all parent project main source sets to the resource directory
+      file("resources").resolve(it).writeText(parent!!.ext[it].toString())
+    }
   }
 }
 
 dependencies {
-  implementationProject(Projects.Built.Ins)
-  testImplementationOf(
-    kotlin("test"),
-    Libs.Kotest.Assertions.Core,
-    Libs.KotlinX.Benchmark.Runtime,
+  implementationOf(
+    Libs.AndroidX.Appcompat,
+    Libs.AndroidX.Core.Ktx,
+    Libs.AndroidX.Lifecycle.ViewModel,
+    Libs.AndroidX.Lifecycle.Livedata,
+    Libs.AndroidX.Activity.Ktx,
+    Libs.AndroidX.Fragment.Ktx,
+    Libs.KotlinX.Datetime,
+    Libs.Square.Kotlinpoet,
+    Libs.Junit.Jupiter.Api,
   )
+  runtimeOnly(Libs.Junit.Jupiter.Engine)
 }

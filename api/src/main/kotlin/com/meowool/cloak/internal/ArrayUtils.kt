@@ -18,36 +18,24 @@
  *
  * 如果您修改了此项目，则必须确保源文件中包含 Meowool 组织 URL: https://github.com/meowool
  */
-plugins {
-  kotlin
-  id(Plugins.KotlinX.Benchmark)
-//  id(Plugins.Meowool.Sweekt)
-}
+package com.meowool.cloak.internal
 
-val benchmarks = "benchmark"
+/**
+ * Returns a new array containing the results of applying the given [transform] function to each element in the
+ * original array.
+ *
+ * @author 凛 (RinOrz)
+ */
+inline fun <T, reified R> Array<out T>.fastMap(transform: (T) -> R): Array<R> =
+  Array(size) { transform(this[it]) }
 
-tasks.test { useJUnitPlatform() }
-
-// Register benchmarks
-benchmark.targets.register(benchmarks)
-sourceSets.register(benchmarks) {
-  val test = sourceSets.test
-  runtimeClasspath += test.runtimeClasspath
-  compileClasspath += test.compileClasspath
-}
-
-kotlin {
-  // Solution: https://stackoverflow.com/a/59260030
-  target.compilations.apply {
-    get(benchmarks).associateWith(get(SourceSet.MAIN_SOURCE_SET_NAME))
-  }
-}
-
-dependencies {
-  implementationProject(Projects.Built.Ins)
-  testImplementationOf(
-    kotlin("test"),
-    Libs.Kotest.Assertions.Core,
-    Libs.KotlinX.Benchmark.Runtime,
-  )
+/**
+ * Returns `true` if all elements match the given [predicate].
+ *
+ * @author 凛 (RinOrz)
+ */
+inline fun <T> Array<out T>.allIndexed(predicate: (index: Int, T) -> Boolean): Boolean {
+  var index = 0
+  for (element in this) if (!predicate(index++, element)) return false
+  return true
 }

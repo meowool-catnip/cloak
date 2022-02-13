@@ -18,36 +18,10 @@
  *
  * 如果您修改了此项目，则必须确保源文件中包含 Meowool 组织 URL: https://github.com/meowool
  */
-plugins {
-  kotlin
-  id(Plugins.KotlinX.Benchmark)
-//  id(Plugins.Meowool.Sweekt)
-}
+package com.meowool.cloak
 
-val benchmarks = "benchmark"
+import com.meowool.cloak.internal.InternalCloakApi
 
-tasks.test { useJUnitPlatform() }
+@InternalCloakApi const val JvmConstructorName: String = "<init>"
 
-// Register benchmarks
-benchmark.targets.register(benchmarks)
-sourceSets.register(benchmarks) {
-  val test = sourceSets.test
-  runtimeClasspath += test.runtimeClasspath
-  compileClasspath += test.compileClasspath
-}
-
-kotlin {
-  // Solution: https://stackoverflow.com/a/59260030
-  target.compilations.apply {
-    get(benchmarks).associateWith(get(SourceSet.MAIN_SOURCE_SET_NAME))
-  }
-}
-
-dependencies {
-  implementationProject(Projects.Built.Ins)
-  testImplementationOf(
-    kotlin("test"),
-    Libs.Kotest.Assertions.Core,
-    Libs.KotlinX.Benchmark.Runtime,
-  )
-}
+@InternalCloakApi const val JvmStaticInitializerName: String = "<clinit>"

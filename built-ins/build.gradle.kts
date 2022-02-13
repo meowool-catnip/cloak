@@ -19,35 +19,35 @@
  * 如果您修改了此项目，则必须确保源文件中包含 Meowool 组织 URL: https://github.com/meowool
  */
 plugins {
-  kotlin
-  id(Plugins.KotlinX.Benchmark)
 //  id(Plugins.Meowool.Sweekt)
 }
 
-val benchmarks = "benchmark"
+androidLib()
 
-tasks.test { useJUnitPlatform() }
-
-// Register benchmarks
-benchmark.targets.register(benchmarks)
-sourceSets.register(benchmarks) {
-  val test = sourceSets.test
-  runtimeClasspath += test.runtimeClasspath
-  compileClasspath += test.compileClasspath
+configurations.all {
+  resolutionStrategy.cacheChangingModulesFor(0, TimeUnit.SECONDS)
 }
 
-kotlin {
-  // Solution: https://stackoverflow.com/a/59260030
-  target.compilations.apply {
-    get(benchmarks).associateWith(get(SourceSet.MAIN_SOURCE_SET_NAME))
+jvmTarget()
+
+androidTarget {
+  main.dependsOn(jvmMainSourceSet)
+  main.dependencies {
+    compileOnlyOf(
+      Libs.AndroidX.Appcompat,
+      Libs.AndroidX.Core.Ktx,
+      Libs.AndroidX.Activity.Ktx,
+      Libs.AndroidX.Fragment.Ktx,
+    )
   }
 }
 
-dependencies {
-  implementationProject(Projects.Built.Ins)
-  testImplementationOf(
-    kotlin("test"),
-    Libs.Kotest.Assertions.Core,
-    Libs.KotlinX.Benchmark.Runtime,
-  )
+afterEvaluate {
+  mapOf(
+    jvmMainSourceSet to "jvm.src",
+    androidMainSourceSet to "android.src",
+  ).forEach { (mainSourceSet, file) ->
+    // Save the path of the main source set
+    ext.set(file, mainSourceSet.kotlin.srcDirs.first { it.exists() }.absolutePath)
+  }
 }

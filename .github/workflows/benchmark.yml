@@ -1,0 +1,20 @@
+name: "Benchmarking"
+on: [push, pull_request]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ macos-latest, windows-latest, ubuntu-latest, ubuntu-18.04, macos-10.15 ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Running the tests
+        uses: gradle/gradle-build-action@v1
+        with:
+          gradle-version: wrapper
+          arguments: benchmark

@@ -6,8 +6,6 @@
       <module name="baize.api.test" target="11" />
       <module name="baize.benchmark.main" target="11" />
       <module name="baize.benchmark.test" target="11" />
-      <module name="cloak.api.main" target="11" />
-      <module name="cloak.api.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

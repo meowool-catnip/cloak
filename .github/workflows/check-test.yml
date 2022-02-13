@@ -1,0 +1,37 @@
+name: "Benchmarking"
+on:
+  push:
+    paths:
+      - 'api/benchmark/kotlin/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Clean project
+        uses: gradle/gradle-build-action@v1
+        with:
+          arguments: clean
+
+      - name: Check & Test
+        uses: gradle/gradle-build-action@v1
+        with:
+          distributions-cache-enabled: true
+          configuration-cache-enabled: true
+          dependencies-cache-enabled: true
+          # See: https://docs.gradle.org/current/userguide/java_testing.html#sec:test_execution
+          arguments: |
+            check
+            test
+            -x built-ins:generator:lint
+            -PignoreFailures=true
+            -DmaxParallelForks=3
+            --stacktrace
+            --scan

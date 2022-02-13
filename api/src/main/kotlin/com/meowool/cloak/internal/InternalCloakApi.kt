@@ -18,36 +18,15 @@
  *
  * 如果您修改了此项目，则必须确保源文件中包含 Meowool 组织 URL: https://github.com/meowool
  */
-plugins {
-  kotlin
-  id(Plugins.KotlinX.Benchmark)
-//  id(Plugins.Meowool.Sweekt)
-}
+package com.meowool.cloak.internal
 
-val benchmarks = "benchmark"
-
-tasks.test { useJUnitPlatform() }
-
-// Register benchmarks
-benchmark.targets.register(benchmarks)
-sourceSets.register(benchmarks) {
-  val test = sourceSets.test
-  runtimeClasspath += test.runtimeClasspath
-  compileClasspath += test.compileClasspath
-}
-
-kotlin {
-  // Solution: https://stackoverflow.com/a/59260030
-  target.compilations.apply {
-    get(benchmarks).associateWith(get(SourceSet.MAIN_SOURCE_SET_NAME))
-  }
-}
-
-dependencies {
-  implementationProject(Projects.Built.Ins)
-  testImplementationOf(
-    kotlin("test"),
-    Libs.Kotest.Assertions.Core,
-    Libs.KotlinX.Benchmark.Runtime,
-  )
-}
+/**
+ * Used to mark APIs that are not available externally.
+ *
+ * @author 凛 (RinOrz)
+ */
+@RequiresOptIn(
+  level = RequiresOptIn.Level.ERROR,
+  message = "This is an internal 'com.meowool.cloak' API that should not be used from outside."
+)
+annotation class InternalCloakApi

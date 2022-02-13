@@ -1,0 +1,118 @@
+public final class com/meowool/cloak/CloakPropertyReflection {
+	public fun <init> ()V
+	public final fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+	public final fun setValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;Ljava/lang/Object;)V
+}
+
+public final class com/meowool/cloak/ConstantsKt {
+	public static final field JvmConstructorName Ljava/lang/String;
+	public static final field JvmStaticInitializerName Ljava/lang/String;
+}
+
+public final class com/meowool/cloak/ExplicitTypeInstance {
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getInstance ()Ljava/lang/Object;
+	public final fun getType-8E-Bahw ()Ljava/lang/Object;
+}
+
+public final class com/meowool/cloak/ExplicitTypeInstanceKt {
+	public static final fun getObjectTyped (B)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getObjectTyped (C)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getObjectTyped (D)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getObjectTyped (F)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getObjectTyped (I)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getObjectTyped (J)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getObjectTyped (S)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getObjectTyped (Z)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getPrimitiveTyped (B)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getPrimitiveTyped (C)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getPrimitiveTyped (D)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getPrimitiveTyped (F)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getPrimitiveTyped (I)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getPrimitiveTyped (J)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getPrimitiveTyped (S)Lcom/meowool/cloak/ExplicitTypeInstance;
+	public static final fun getPrimitiveTyped (Z)Lcom/meowool/cloak/ExplicitTypeInstance;
+}
+
+public final class com/meowool/cloak/ImperativeConstructorKt {
+	public static final fun new-QktDPF4 (Ljava/lang/Object;[Ljava/lang/Object;[Lcom/meowool/cloak/Type;)Ljava/lang/Object;
+	public static synthetic fun new-QktDPF4$default (Ljava/lang/Object;[Ljava/lang/Object;[Lcom/meowool/cloak/Type;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class com/meowool/cloak/InstanceMock {
+	public abstract fun getActual ()Ljava/lang/Object;
+	public abstract fun getActualType-8E-Bahw ()Ljava/lang/Object;
+}
+
+public final class com/meowool/cloak/JavaClassUtilsKt {
+	public static final fun arrayOfPrimitiveWrappers (Z)[Ljava/lang/Class;
+	public static synthetic fun arrayOfPrimitiveWrappers$default (ZILjava/lang/Object;)[Ljava/lang/Class;
+	public static final fun arrayOfPrimitives (Z)[Ljava/lang/Class;
+	public static synthetic fun arrayOfPrimitives$default (ZILjava/lang/Object;)[Ljava/lang/Class;
+	public static final fun boxing (Ljava/lang/Class;)Ljava/lang/Class;
+	public static final fun canCastTo (Ljava/lang/Class;Ljava/lang/Class;)Z
+	public static final fun canCastTo (Ljava/lang/Object;Ljava/lang/Class;)Z
+	public static final fun isBooleanPrimitiveOrWrapper (Ljava/lang/Class;)Z
+	public static final fun isBoxedNumber (Ljava/lang/Class;)Z
+	public static final fun isBytePrimitiveOrWrapper (Ljava/lang/Class;)Z
+	public static final fun isCharPrimitiveOrWrapper (Ljava/lang/Class;)Z
+	public static final fun isDoublePrimitiveOrWrapper (Ljava/lang/Class;)Z
+	public static final fun isFloatPrimitiveOrWrapper (Ljava/lang/Class;)Z
+	public static final fun isIntPrimitiveOrWrapper (Ljava/lang/Class;)Z
+	public static final fun isLongPrimitiveOrWrapper (Ljava/lang/Class;)Z
+	public static final fun isNumber (Ljava/lang/Class;)Z
+	public static final fun isObject (Ljava/lang/Class;)Z
+	public static final fun isPrimitiveNumber (Ljava/lang/Class;)Z
+	public static final fun isPrimitiveOrPrimitiveArray (Ljava/lang/Class;)Z
+	public static final fun isPrimitiveOrWrapper (Ljava/lang/Class;)Z
+	public static final fun isPrimitiveWrapper (Ljava/lang/Class;)Z
+	public static final fun isShortPrimitiveOrWrapper (Ljava/lang/Class;)Z
+	public static final fun unboxing (Ljava/lang/Class;)Ljava/lang/Class;
+}
+
+public final class com/meowool/cloak/JavaMemberUtilsKt {
+	public static final fun matchBestConstructor (Ljava/lang/Class;[Ljava/lang/Class;)Ljava/lang/reflect/Constructor;
+	public static final fun matchBestField (Ljava/lang/Class;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/reflect/Field;
+}
+
+public final class com/meowool/cloak/Type {
+	public static final synthetic fun box-impl (Ljava/lang/Object;)Lcom/meowool/cloak/Type;
+	public static fun constructor-impl (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public static final fun getDescriptor-impl (Ljava/lang/Object;)Ljava/lang/String;
+	public static final fun getJavaClass-impl (Ljava/lang/Object;)Ljava/lang/Class;
+	public static final fun getKotlinClass-impl (Ljava/lang/Object;)Lkotlin/reflect/KClass;
+	public static final fun getQualifiedName-impl (Ljava/lang/Object;)Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/Object;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/Object;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/Object;
+}
+
+public final class com/meowool/cloak/TypeKt {
+	public static final fun AnyType (Ljava/lang/String;)Ljava/lang/Object;
+	public static final fun getType (Ljava/lang/Class;)Ljava/lang/Object;
+	public static final fun getType (Ljava/lang/String;)Ljava/lang/Object;
+	public static final fun getType (Lkotlin/reflect/KClass;)Ljava/lang/Object;
+}
+
+public final class com/meowool/cloak/internal/ArrayUtilsKt {
+	public static final fun allIndexed ([Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Z
+}
+
+public final class com/meowool/cloak/internal/CompilerKt {
+	public static final fun compilerImplementation ()Ljava/lang/Void;
+}
+
+public abstract interface annotation class com/meowool/cloak/internal/InternalCloakApi : java/lang/annotation/Annotation {
+}
+
+public final class com/meowool/cloak/internal/ReflectionFactory {
+	public static final field INSTANCE Lcom/meowool/cloak/internal/ReflectionFactory;
+	public final fun get (Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;
+	public final fun newInstance (Ljava/lang/Class;[Ljava/lang/Object;[Ljava/lang/Class;)Ljava/lang/Object;
+}
+

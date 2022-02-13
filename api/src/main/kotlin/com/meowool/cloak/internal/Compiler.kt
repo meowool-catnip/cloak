@@ -18,36 +18,17 @@
  *
  * 如果您修改了此项目，则必须确保源文件中包含 Meowool 组织 URL: https://github.com/meowool
  */
-plugins {
-  kotlin
-  id(Plugins.KotlinX.Benchmark)
-//  id(Plugins.Meowool.Sweekt)
-}
+package com.meowool.cloak.internal
 
-val benchmarks = "benchmark"
+/**
+ * Represents that the member marked with annotation will be deleted at compile time.
+ *
+ * @author 凛 (RinOrz)
+ */
+@Retention(AnnotationRetention.SOURCE)
+internal annotation class CompileOnly
 
-tasks.test { useJUnitPlatform() }
-
-// Register benchmarks
-benchmark.targets.register(benchmarks)
-sourceSets.register(benchmarks) {
-  val test = sourceSets.test
-  runtimeClasspath += test.runtimeClasspath
-  compileClasspath += test.compileClasspath
-}
-
-kotlin {
-  // Solution: https://stackoverflow.com/a/59260030
-  target.compilations.apply {
-    get(benchmarks).associateWith(get(SourceSet.MAIN_SOURCE_SET_NAME))
-  }
-}
-
-dependencies {
-  implementationProject(Projects.Built.Ins)
-  testImplementationOf(
-    kotlin("test"),
-    Libs.Kotest.Assertions.Core,
-    Libs.KotlinX.Benchmark.Runtime,
-  )
-}
+@PublishedApi internal fun compilerImplementation(): Nothing = throw UnsupportedOperationException(
+  "Implemented by cloak compiler plugin, " +
+    "please make sure you have applied the plugin of https://github.com/meowool-teasn/cloak"
+)
