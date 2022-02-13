@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+
 publication.data {
   val baseVersion = "0.1.0"
   version = "$baseVersion-LOCAL"
@@ -6,8 +8,8 @@ publication.data {
 
   displayName = "Cloak"
   artifactId = "cloak"
-  groupId = "com.meowool.teasn"
-  url = "https://github.com/meowool-teasn/${rootProject.name}"
+  groupId = "com.meowool.catnip"
+  url = "https://github.com/meowool-catnip/${rootProject.name}"
   vcs = "$url.git"
   developer {
     id = "rin"
@@ -17,9 +19,16 @@ publication.data {
 }
 
 subprojects {
-  optIn("com.meowool.cloak.internal.InternalCloakApi")
-  dokka(DokkaFormat.Html) {
-    outputDirectory.set(rootDir.resolve("docs/apis"))
+  optIn("com.meowool.cloak.internal.InternalCloakApi", "kotlin.RequiresOptIn")
+  dokka(DokkaFormat.Html) { outputDirectory.set(rootDir.resolve("docs/apis")) }
+  repositories.mavenLocal()
+}
+
+registerLogic {
+  project {
+    val deps = arrayOf(Libs.Meowool.Toolkit.Sweekt)
+    extensions.findByType<KotlinMultiplatformExtension>()?.apply {
+      commonMainSourceSet.dependencies { implementationOf(*deps) }
+    } ?: dependencies.implementationOf(*deps)
   }
-  kotlinExplicitApi()
 }
