@@ -1,15 +1,7 @@
 name: "Benchmarking"
 on:
   workflow_dispatch:
-  schedule:
-    # Run at 04:05 every Wednesday.
-    - cron: '5 4 * * 3'
-  pull_request:
-    paths:
-      - 'api/src/benchmark/kotlin/**'
   push:
-    branches:
-      - main
     paths:
       - 'api/src/benchmark/kotlin/**'
 
