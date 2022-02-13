@@ -75,7 +75,6 @@ public final class com/meowool/cloak/builtin/types/BuiltInTypes {
 	public static final fun get_EdgeEffect ()Ljava/lang/Object;
 	public static final fun get_EditText ()Ljava/lang/Object;
 	public static final fun get_Editable ()Ljava/lang/Object;
-	public static final fun get_Entry ()Ljava/lang/Object;
 	public static final fun get_Enum ()Ljava/lang/Object;
 	public static final fun get_File ()Ljava/lang/Object;
 	public static final fun get_Float ()Ljava/lang/Object;
@@ -110,6 +109,7 @@ public final class com/meowool/cloak/builtin/types/BuiltInTypes {
 	public static final fun get_Long ()Ljava/lang/Object;
 	public static final fun get_LongArray ()Ljava/lang/Object;
 	public static final fun get_Map ()Ljava/lang/Object;
+	public static final fun get_Map_Entry ()Ljava/lang/Object;
 	public static final fun get_Menu ()Ljava/lang/Object;
 	public static final fun get_MenuInflater ()Ljava/lang/Object;
 	public static final fun get_MenuItem ()Ljava/lang/Object;

@@ -36,7 +36,6 @@ public final class com/meowool/cloak/builtin/types/BuiltInTypes {
 	public static final fun get_Comparable ()Ljava/lang/Object;
 	public static final fun get_Double ()Ljava/lang/Object;
 	public static final fun get_DoubleArray ()Ljava/lang/Object;
-	public static final fun get_Entry ()Ljava/lang/Object;
 	public static final fun get_Enum ()Ljava/lang/Object;
 	public static final fun get_File ()Ljava/lang/Object;
 	public static final fun get_Float ()Ljava/lang/Object;
@@ -54,6 +53,7 @@ public final class com/meowool/cloak/builtin/types/BuiltInTypes {
 	public static final fun get_Long ()Ljava/lang/Object;
 	public static final fun get_LongArray ()Ljava/lang/Object;
 	public static final fun get_Map ()Ljava/lang/Object;
+	public static final fun get_Map_Entry ()Ljava/lang/Object;
 	public static final fun get_Number ()Ljava/lang/Object;
 	public static final fun get_Object ()Ljava/lang/Object;
 	public static final fun get_Observer ()Ljava/lang/Object;
