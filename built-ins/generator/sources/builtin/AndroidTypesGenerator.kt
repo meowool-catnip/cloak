@@ -1,11 +1,15 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION", "NewApi")
 
 package builtin
 
+import android.app.ActionBar
 import android.app.Activity
-import android.app.*
+import android.app.AlertDialog
 import android.app.AppComponentFactory
+import android.app.Dialog
+import android.app.DialogFragment
 import android.app.Fragment
+import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.ContentProvider
 import android.content.ContentResolver
@@ -37,7 +41,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
-import android.widget.*
+import android.widget.AbsListView
+import android.widget.Adapter
+import android.widget.BaseAdapter
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EdgeEffect
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ListView
+import android.widget.PopupWindow
+import android.widget.RelativeLayout
+import android.widget.RemoteViews
+import android.widget.ScrollView
+import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toolbar
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResult
 import androidx.appcompat.app.AppCompatActivity
