@@ -25,13 +25,17 @@ package com.meowool.cloak
 import com.meowool.cloak.case.Animal
 import com.meowool.cloak.case.Cat
 import com.meowool.cloak.case.Dog
+import com.meowool.cloak.case.FieldsContainer
+import com.meowool.cloak.case.FieldsParent
 import com.meowool.cloak.case.Grass
+import com.meowool.cloak.case.Organism
 import com.meowool.cloak.case.Rabbit
 import com.meowool.cloak.case.Zoo
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.collections.shouldNotBeIn
 import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Test
@@ -40,7 +44,7 @@ import org.junit.jupiter.api.Test
  * @author 凛 (RinOrz)
  */
 class JavaMemberUtilsTests {
-  @Test fun `match the most similar constructor`() {
+  @Test fun `match the best constructor`() {
     Zoo::class.java.matchBestConstructor().shouldBeNull()
 
     // case of primitive or wrapper of the same type: `true` or `java.lang.Boolean.valueOf(true)`
@@ -114,5 +118,47 @@ class JavaMemberUtilsTests {
     Zoo::class.java.matchBestConstructor(null, null) shouldBe Zoo::class.java.declaredConstructors.first {
       it.parameterTypes.size == 2 && it.parameterTypes.first().isObject && it.parameterTypes.last().isObject
     }
+  }
+
+  @Test fun `match the best field`() {
+    // int
+    FieldsContainer::class.java.matchBestField("intField", null).shouldNotBeNull().shouldBeIn(
+      FieldsContainer::class.java.matchBestField("intField", Int::class.javaObjectType),
+      FieldsContainer::class.java.matchBestField(null, Int::class.javaPrimitiveType),
+      FieldsContainer::class.java.getDeclaredField("intField"),
+    )
+
+    // boolean
+    FieldsContainer::class.java.matchBestField(null, Boolean::class.javaPrimitiveType).shouldNotBeNull().shouldBeIn(
+      FieldsParent::class.java.matchBestField("booleanField", Boolean::class.javaPrimitiveType),
+      FieldsContainer::class.java.getDeclaredField("booleanField"),
+    )
+    FieldsContainer::class.java.matchBestField("baseBooleanField", null).shouldNotBeNull().shouldBeIn(
+      FieldsParent::class.java.matchBestField(null, Boolean::class.javaPrimitiveType),
+      FieldsParent::class.java.getDeclaredField("baseBooleanField")
+    )
+    FieldsContainer::class.java.matchBestField(null, Boolean::class.javaObjectType).shouldNotBeNull().apply {
+      // For performance reasons, if the class is found, the parent class will not be traversed,
+      shouldNotBe(FieldsParent::class.java.getDeclaredField("baseBooleanObjectField"))
+      // therefore, the result is the earliest matched field that type is boolean
+      shouldBe(FieldsContainer::class.java.getDeclaredField("booleanField"))
+    }
+
+    // string
+    FieldsContainer::class.java.matchBestField(null, String::class.java).shouldNotBeNull().shouldBe(
+      FieldsParent::class.java.getDeclaredField("baseStringField"),
+    )
+
+    // interface
+    FieldsContainer::class.java.matchBestField(null, Organism::class.java).shouldNotBeNull().shouldBe(
+      FieldsContainer::class.java.getDeclaredField("interfaceLowField")
+    )
+    FieldsContainer::class.java.matchBestField(null, Cat::class.java).shouldNotBeNull().shouldBeIn(
+      FieldsContainer::class.java.matchBestField(null, Animal::class.java),
+      FieldsContainer::class.java.getDeclaredField("interfaceField"),
+    )
+
+    // non
+    FieldsContainer::class.java.matchBestField(null, Object::class.java).shouldBeNull()
   }
 }

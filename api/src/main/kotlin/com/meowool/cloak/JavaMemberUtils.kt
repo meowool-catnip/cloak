@@ -75,22 +75,22 @@ import java.lang.reflect.Field
 fun <T> Class<T>.matchBestConstructor(vararg parameters: Class<*>?): Constructor<T>? = ReflectionFactory.lookup {
   getDeclaredConstructor(*parameters)
 }.orLookup {
-  // Depth matching constructors, the lightest result wins
-  var lightest: Constructor<*>? = null
-  var lightestWeight = MatchingDistance.Mismatch
+  // Depth matching constructors, the closest result wins
+  var closest: Constructor<*>? = null
+  var closestDistance = MatchingDistance.Mismatch
   declaredConstructors.forEach {
     val currentWeight = calculateDistanceBetween(
       passed = parameters,
       declared = it.parameterTypes,
       hasVararg = it.isVarArgs
     )
-    // Current constructor is lighter, so it's better
-    if (currentWeight.isMatched && (lightest == null || currentWeight < lightestWeight)) {
-      lightest = it
-      lightestWeight = currentWeight
+    // Current constructor is closer, so it's better
+    if (currentWeight.isMatched && (closest == null || currentWeight < closestDistance)) {
+      closest = it
+      closestDistance = currentWeight
     }
   }
-  lightest
+  closest
 } as? Constructor<T>
 
 /**
@@ -126,29 +126,42 @@ fun <T> Class<T>.matchBestConstructor(vararg parameters: Class<*>?): Constructor
  *
  * @author 凛 (RinOrz)
  */
-fun <T> Class<T>.matchBestField(name: String?, type: Class<*>?): Field? = ReflectionFactory
-  .lookup { name?.let(::getDeclaredField) }
-  .orLookup { name?.let(::getField) }
-  .takeIf { it?.type == type }
-  .orLookup {
-    // Depth matching fields, the lightest result wins
-    var lightest: Field? = null
-    var lightestWeight = MatchingDistance.Mismatch
+fun <T> Class<T>.matchBestField(name: String?, type: Class<*>?): Field? {
+  require(name != null || type != null) { "Either name or type must be specified." }
+  fun Class<*>.lookupField() = ReflectionFactory.lookup {
+    name?.let(::getDeclaredField)
+  }.orLookup {
+    name?.let(::getField)
+  }
+  return lookupField()?.takeIf { field ->
+    // Ignore type
+    if (type == null) return@takeIf true
+    type canCastTo field.type
+  }.orLookup {
+    // Depth matching fields, the closest result wins
+    var closest: Field? = null
+    var closestWeight = MatchingDistance.Mismatch
     var currentClass: Class<*>? = this
     while (currentClass != null) {
-      currentClass.declaredFields.forEach {
-        // Skip current field if it's name mismatched
-        if (name != null && name != it.name) return@forEach
-        val currentWeight = calculateDistanceBetween(passed = type, declared = it.type, depth = true)
-        // Current field is lighter, so it's better
-        if (currentWeight.isMatched && (lightest == null || currentWeight < lightestWeight)) {
-          lightest = it
-          lightestWeight = currentWeight
+      when(type) {
+        // Ignore type, use the fastest direct implementation
+        null -> currentClass.lookupField()?.also { return it }
+
+        else -> currentClass.declaredFields.forEach {
+          // Skip current field if it's name mismatched
+          if (name != null && name != it.name) return@forEach
+          val currentWeight = calculateDistanceBetween(passed = type, declared = it.type, depth = true)
+          // Current field is lighter, so it's better
+          if (currentWeight.isMatched && (closest == null || currentWeight < closestWeight)) {
+            closest = it
+            closestWeight = currentWeight
+          }
         }
       }
       // For performance reasons,
       //   the parent class will continue to be searched only when no matching field is found in current class.
-      if (lightest == null) currentClass = currentClass.superclass else break
+      if (closest == null) currentClass = currentClass.superclass else break
     }
-    lightest
+    closest
   }
+}
