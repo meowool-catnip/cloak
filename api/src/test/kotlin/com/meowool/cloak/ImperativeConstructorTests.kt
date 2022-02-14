@@ -53,8 +53,6 @@ class ImperativeConstructorTests {
   }
 
   @Test fun `correct constructor was created via implicit parameters`() {
-    // ktlint-disable
-    // @formatter:off
     Zoo::class.type.new(true) shouldBe Zoo(true)
     Zoo::class.type.new(false) shouldBe Zoo(false)
     Zoo::class.type.new(0) shouldBe Zoo(0)
