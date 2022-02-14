@@ -22,12 +22,11 @@
 
 package com.meowool.cloak
 
-import com.meowool.cloak.internal.MISMATCH_WEIGHT
+import com.meowool.cloak.internal.MatchingDistance
+import com.meowool.cloak.internal.MatchingDistance.isMatched
 import com.meowool.cloak.internal.ReflectionFactory
 import com.meowool.cloak.internal.ReflectionFactory.orLookup
-import com.meowool.cloak.internal.calculateClassWeight
-import com.meowool.cloak.internal.calculateParametersWeight
-import com.meowool.cloak.internal.isMatchedWeight
+import com.meowool.cloak.internal.calculateDistanceBetween
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 
@@ -78,15 +77,15 @@ fun <T> Class<T>.matchBestConstructor(vararg parameters: Class<*>?): Constructor
 }.orLookup {
   // Depth matching constructors, the lightest result wins
   var lightest: Constructor<*>? = null
-  var lightestWeight = MISMATCH_WEIGHT
+  var lightestWeight = MatchingDistance.Mismatch
   declaredConstructors.forEach {
-    val currentWeight = calculateParametersWeight(
+    val currentWeight = calculateDistanceBetween(
       passed = parameters,
       declared = it.parameterTypes,
       hasVararg = it.isVarArgs
     )
     // Current constructor is lighter, so it's better
-    if (currentWeight.isMatchedWeight && (lightest == null || currentWeight < lightestWeight)) {
+    if (currentWeight.isMatched && (lightest == null || currentWeight < lightestWeight)) {
       lightest = it
       lightestWeight = currentWeight
     }
@@ -134,15 +133,15 @@ fun <T> Class<T>.matchBestField(name: String?, type: Class<*>?): Field? = Reflec
   .orLookup {
     // Depth matching fields, the lightest result wins
     var lightest: Field? = null
-    var lightestWeight = MISMATCH_WEIGHT
+    var lightestWeight = MatchingDistance.Mismatch
     var currentClass: Class<*>? = this
     while (currentClass != null) {
       currentClass.declaredFields.forEach {
         // Skip current field if it's name mismatched
         if (name != null && name != it.name) return@forEach
-        val currentWeight = calculateClassWeight(passed = type, declared = it.type, depth = true)
+        val currentWeight = calculateDistanceBetween(passed = type, declared = it.type, depth = true)
         // Current field is lighter, so it's better
-        if (currentWeight.isMatchedWeight && (lightest == null || currentWeight < lightestWeight)) {
+        if (currentWeight.isMatched && (lightest == null || currentWeight < lightestWeight)) {
           lightest = it
           lightestWeight = currentWeight
         }

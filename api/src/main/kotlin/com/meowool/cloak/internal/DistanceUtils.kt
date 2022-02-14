@@ -1,23 +1,3 @@
-/*
- * Copyright (c) 2022. The Meowool Organization Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * In addition, if you modified the project, you must include the Meowool
- * organization URL in your code file: https://github.com/meowool
- *
- * 如果您修改了此项目，则必须确保源文件中包含 Meowool 组织 URL: https://github.com/meowool
- */
 @file:Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "NOTHING_TO_INLINE")
 
 package com.meowool.cloak.internal
@@ -31,10 +11,11 @@ import com.meowool.cloak.INT_OBJECT
 import com.meowool.cloak.LONG_OBJECT
 import com.meowool.cloak.SHORT_OBJECT
 import com.meowool.cloak.canCastTo
+import com.meowool.cloak.internal.MatchingDistance.isMatched
+import com.meowool.cloak.internal.MatchingDistance.isMismatch
 import com.meowool.cloak.isObject
 import com.meowool.cloak.isPrimitiveNumber
 import kotlin.Boolean
-import kotlin.Float
 import java.lang.Boolean as BooleanObject
 import java.lang.Byte as ByteObject
 import java.lang.Character as CharObject
@@ -44,34 +25,39 @@ import java.lang.Integer as IntObject
 import java.lang.Long as LongObject
 import java.lang.Short as ShortObject
 
-internal const val MIN_WEIGHT = 0f
-internal const val MATCH_NULL_WEIGHT = 1f
-internal const val MATCH_KIND_WEIGHT = 0.3f
-internal const val PRIMITIVE_WEIGHT = 0.5f
-internal const val SAME_PRIMITIVE_KIND_WEIGHT = 0.2f
-internal const val MISMATCH_WEIGHT = -1f
-
-internal inline val Float.isMismatchWeight get() = this < MIN_WEIGHT
-internal inline val Float.isMatchedWeight get() = this >= MIN_WEIGHT
-
 /**
- * Calculates the weight of the [passed] class relative to the [declared] class.
- *
- * @return The lighter the weight, the better they match.
  * @author 凛 (RinOrz)
  */
-internal fun calculateClassWeight(
+internal object MatchingDistance {
+  const val Min = 0
+  const val AnyMatched = 30
+  const val KindMatched = 10
+  const val NumberMatched = 18
+  const val PrimitiveKindMatched = 7
+  const val Mismatch = -1
+
+  inline val Int.isMismatch get() = this < Min
+  inline val Int.isMatched get() = this >= Min
+}
+
+/**
+ * Calculates the distance between the [passed] class and the [declared] class.
+ *
+ * @return The better the match between classes, the smaller the result distance.
+ * @author 凛 (RinOrz)
+ */
+internal fun calculateDistanceBetween(
   passed: Class<*>?,
   declared: Class<*>,
   depth: Boolean
-): Float {
+): Int {
   if (passed == null) {
-    return if (declared.isObject) MATCH_NULL_WEIGHT else MISMATCH_WEIGHT
+    return if (declared.isObject) MatchingDistance.AnyMatched else MatchingDistance.Mismatch
   }
 
-  if (passed == declared) return MIN_WEIGHT
+  if (passed == declared) return MatchingDistance.Min
 
-  if (passed.isArray && declared.isArray) return calculateClassWeight(
+  if (passed.isArray && declared.isArray) return calculateDistanceBetween(
     passed.componentType, declared.componentType, depth
   )
 
@@ -114,71 +100,71 @@ internal fun calculateClassWeight(
     (passed == CHAR_OBJECT && declared == CharObject.TYPE) ||
     // (Character) 'a'
     (passed == CharObject.TYPE && declared == CHAR_OBJECT)
-  ) return SAME_PRIMITIVE_KIND_WEIGHT
+  ) return MatchingDistance.PrimitiveKindMatched
 
-  if (passed.isPrimitiveNumber && declared.isPrimitiveNumber) return PRIMITIVE_WEIGHT
+  if (passed.isPrimitiveNumber && declared.isPrimitiveNumber) return MatchingDistance.NumberMatched
 
   if (declared.isAssignableFrom(passed)) {
-    if (!depth) return MATCH_KIND_WEIGHT
+    if (!depth) return MatchingDistance.KindMatched
 
-    var weight = MIN_WEIGHT
-    var weighing = passed
-    // Depth weighing: the deeper the depth of the superclass, the higher the weighing.
+    var distance = MatchingDistance.Min
+    var calculating = passed
+    // Depth calculating: the deeper the depth of the superclass, the farther the distance.
     //   algorithm reference from commons-lang3:
     //   https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java#L218-L237
-    while (weighing != null && weighing != declared) {
-      if (declared.isInterface && weighing canCastTo declared) {
+    while (calculating != null && calculating != declared) {
+      if (declared.isInterface && calculating canCastTo declared) {
         // slight penalty for interface match.
         // we still want an exact match to override an interface match,
         // but
         // an interface match should override anything where we have to
         // get a superclass.
-        weight += 1.25f
+        distance += 12
         break
       }
-      weighing = weighing.superclass
-      weight++
+      calculating = calculating.superclass
+      distance += 10
     }
 
-    // If the weighting class is `null`, we've traveled all the way up to
-    // an Object match. We'll penalize this by adding 1.5 to the weight.
-    if (weighing == null) weight += 1.5f
+    // If the calculating class is `null`, we've traveled all the way up to
+    // an Object match. We'll penalize this by adding 15 to the distance.
+    if (calculating == null) distance += 15
 
-    return weight
+    return distance
   }
 
-  return MISMATCH_WEIGHT
+  return MatchingDistance.Mismatch
 }
 
 /**
- * Calculates the weight of the [passed] parameter types relative to the [declared] parameter types.
+ * Calculates the distance between the [passed] parameter types and the [declared] parameter types.
  *
- * @return The lighter the weight, the better they match.
+ * @return The better the match between classes, the smaller the result distance.
  * @author 凛 (RinOrz)
  */
-internal fun calculateParametersWeight(
+internal fun calculateDistanceBetween(
   passed: Array<out Class<*>?>,
   declared: Array<Class<*>>,
   hasVararg: Boolean,
   depth: Boolean = true
-): Float {
+): Int {
   // If the method has 'vararg' parameters, we should consider the following cases:
   //    declared:            String, Boolean, vararg Int
   //  - explicit array case: | ""    | true   | arrayOf(1, 2)
   //  - flattened case:      | ""    | true   | 1, 2
   //  - no vararg case:      | ""    | true   |
   if (when (hasVararg) {
-    false -> declared.size != passed.size
-    true -> passed.size < declared.lastIndex
-  }
-  ) return MISMATCH_WEIGHT
+      false -> declared.size != passed.size
+      true -> passed.size < declared.lastIndex
+    }
+  ) return MatchingDistance.Mismatch
 
-  var totalWeight = 0f
+  var totalDistance = 0
   // Directly check whether all parameter lists match
   if (declared.size == passed.size && declared.allIndexed { index, actualType ->
-    calculateClassWeight(passed[index], actualType, depth).also { totalWeight += it }.isMatchedWeight
-  }
-  ) return totalWeight else totalWeight = 0f
+      calculateDistanceBetween(passed[index], actualType, depth).also { totalDistance += it }.isMatched
+    }
+  ) return totalDistance else totalDistance = 0
 
   if (hasVararg) {
     // In Java, the vararg parameter is always at the end of the method parameter list
@@ -186,25 +172,25 @@ internal fun calculateParametersWeight(
 
     // First, check whether all parameters except the last one match the actual parameter list
     for (index in 0 until varargIndex) {
-      totalWeight += calculateClassWeight(passed[index], declared[index], depth).also {
-        if (it.isMismatchWeight) return MISMATCH_WEIGHT
+      totalDistance += calculateDistanceBetween(passed[index], declared[index], depth).also {
+        if (it.isMismatch) return MatchingDistance.Mismatch
       }
     }
 
     // Then, when no varargs passed, we need to add some weight
-    if (passed.size == declared.lastIndex) return totalWeight + 0.01f
+    if (passed.size == declared.lastIndex) return totalDistance + 3
 
     // Finally, we take out the type of the last vararg (array) parameter,
     val varargType = declared.last().componentType
     // and check whether all parameter types starting from vararg index can become vararg parameters
     for (index in varargIndex until passed.size) {
-      totalWeight += calculateClassWeight(passed[index], varargType, depth).also {
-        if (it.isMismatchWeight) return MISMATCH_WEIGHT
-      } + 0.001f // slight penalty for vararg match
+      totalDistance += calculateDistanceBetween(passed[index], varargType, depth).also {
+        if (it.isMismatch) return MatchingDistance.Mismatch
+      } + 1 // slight penalty for vararg match
     }
 
-    return totalWeight
+    return totalDistance
   }
 
-  return MISMATCH_WEIGHT
+  return MatchingDistance.Mismatch
 }

@@ -22,8 +22,8 @@
 
 package com.meowool.cloak
 
-import com.meowool.cloak.internal.MISMATCH_WEIGHT
-import com.meowool.cloak.internal.calculateClassWeight
+import com.meowool.cloak.internal.MatchingDistance.isMatched
+import com.meowool.cloak.internal.calculateDistanceBetween
 import com.meowool.sweekt.LazyInit
 import com.meowool.sweekt.cast
 import java.lang.Boolean as BooleanObject
@@ -326,8 +326,8 @@ inline infix fun Any?.canCastTo(base: Class<*>): Boolean = when (this) {
  *
  * @author 凛 (RinOrz)
  */
-infix fun Class<*>?.canCastTo(base: Class<*>): Boolean = calculateClassWeight(
+infix fun Class<*>?.canCastTo(base: Class<*>): Boolean = calculateDistanceBetween(
   declared = base,
   passed = this,
   depth = false
-) > MISMATCH_WEIGHT
+).isMatched
