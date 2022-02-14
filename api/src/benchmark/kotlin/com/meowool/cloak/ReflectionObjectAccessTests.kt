@@ -34,28 +34,35 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 
 /**
- * Benchmark                    (useConcurrentHashMap)   Mode  Cnt      Score       Error   Units
- * ----------------------------------------------------------------------------------------------
- * getDeclaredConstructorDirectly                 true  thrpt    5  37209.979 ±   401.071  ops/ms
- * getDeclaredConstructorDirectly                false  thrpt    5  38145.765 ±   394.824  ops/ms
- * getDeclaredConstructorWithCache                true  thrpt    5  36286.185 ±  1130.006  ops/ms
- * getDeclaredConstructorWithCache               false  thrpt    5  39875.199 ±  2538.135  ops/ms
- * getDeclaredConstructorWithStringCache          true  thrpt    5   2526.219 ±   351.689  ops/ms
- * getDeclaredConstructorWithStringCache         false  thrpt    5   2303.449 ±   579.402  ops/ms
- * ----------------------------------------------------------------------------------------------
- * getDeclaredMethodDirectly                      true  thrpt    5  16149.131 ±  6194.534  ops/ms
- * getDeclaredMethodDirectly                     false  thrpt    5  14066.167 ±  8493.408  ops/ms
- * getDeclaredMethodWithCache                     true  thrpt    5  31582.741 ± 13345.444  ops/ms
- * getDeclaredMethodWithCache                    false  thrpt    5  40936.915 ±  6288.993  ops/ms
- * getDeclaredMethodWithStringCache               true  thrpt    5   6073.838 ±    11.078  ops/ms
- * getDeclaredMethodWithStringCache              false  thrpt    5   5825.380 ±   131.154  ops/ms
- * ----------------------------------------------------------------------------------------------
- * filterDeclaredMethodDirectly                   true  thrpt    5   9377.032 ±   923.373  ops/ms
- * filterDeclaredMethodDirectly                  false  thrpt    5   9191.327 ±  2075.706  ops/ms
- * filterDeclaredMethodWithCache                  true  thrpt    5  44113.463 ±  6446.010  ops/ms
- * filterDeclaredMethodWithCache                 false  thrpt    5  41403.127 ±  5742.620  ops/ms
- * filterDeclaredMethodWithStringCache            true  thrpt    5   5953.205 ±   355.962  ops/ms
- * filterDeclaredMethodWithStringCache           false  thrpt    5   5691.164 ±   823.349  ops/ms
+ * Benchmark                              (useConcurrentHashMap)   Mode  Cnt      Score       Error   Units
+ * --------------------------------------------------------------------------------------------------------
+ * filterDeclaredMethodDirectly                             true  thrpt    5   9743.435 ±  3150.265  ops/ms
+ * filterDeclaredMethodDirectly                            false  thrpt    5   9496.195 ±  2231.011  ops/ms
+ * filterDeclaredMethodWithCache                            true  thrpt    5  44323.817 ±  7230.033  ops/ms
+ * filterDeclaredMethodWithCache                           false  thrpt    5  19327.989 ±  6040.781  ops/ms
+ * filterDeclaredMethodWithStringCache                      true  thrpt    5   5992.899 ±   515.225  ops/ms
+ * filterDeclaredMethodWithStringCache                     false  thrpt    5   5673.335 ±   849.686  ops/ms
+ * --------------------------------------------------------------------------------------------------------
+ * getDeclaredConstructorDirectly                           true  thrpt    5  38587.439 ±  5363.130  ops/ms
+ * getDeclaredConstructorDirectly                          false  thrpt    5  38204.169 ±  4026.448  ops/ms
+ * getDeclaredConstructorWithCache                          true  thrpt    5  43941.816 ±  7403.931  ops/ms
+ * getDeclaredConstructorWithCache                         false  thrpt    5  47575.009 ± 11822.117  ops/ms
+ * getDeclaredConstructorWithStringCache                    true  thrpt    5   2679.211 ±   334.335  ops/ms
+ * getDeclaredConstructorWithStringCache                   false  thrpt    5   2444.858 ±   829.690  ops/ms
+ * --------------------------------------------------------------------------------------------------------
+ * getDeclaredFieldDirectly                                 true  thrpt    5  41429.840 ±  3722.272  ops/ms
+ * getDeclaredFieldDirectly                                false  thrpt    5  41218.756 ± 12568.078  ops/ms
+ * getDeclaredFieldWithCache                                true  thrpt    5  39348.196 ±  2902.307  ops/ms
+ * getDeclaredFieldWithCache                               false  thrpt    5  40037.868 ±   646.407  ops/ms
+ * getDeclaredFieldWithStringCache                          true  thrpt    5   9191.624 ±    16.188  ops/ms
+ * getDeclaredFieldWithStringCache                         false  thrpt    5  10240.912 ±    26.364  ops/ms
+ * --------------------------------------------------------------------------------------------------------
+ * getDeclaredMethodDirectly                                true  thrpt    5  18378.404 ±   174.204  ops/ms
+ * getDeclaredMethodDirectly                               false  thrpt    5  18385.413 ±   169.897  ops/ms
+ * getDeclaredMethodWithCache                               true  thrpt    5  24015.300 ±   172.085  ops/ms
+ * getDeclaredMethodWithCache                              false  thrpt    5  25206.794 ±   134.474  ops/ms
+ * getDeclaredMethodWithStringCache                         true  thrpt    5   6123.770 ±    22.751  ops/ms
+ * getDeclaredMethodWithStringCache                        false  thrpt    5   5891.994 ±    26.947  ops/ms
  *
  * @author 凛 (RinOrz)
  */
@@ -85,7 +92,7 @@ open class ReflectionObjectAccessTests {
   }
 
   @Benchmark fun getDeclaredConstructorWithCache() {
-    fun reflect(vararg params: Class<*>) = membersCache.getOrPut(MemberCacheKey(Case::class.java, params)) {
+    fun reflect(vararg params: Class<*>) = membersCache.getOrPut(MemberCacheKey.Constructor(Case::class.java, params)) {
       Case::class.java.getDeclaredConstructor(*params)
     }
 
@@ -110,7 +117,7 @@ open class ReflectionObjectAccessTests {
 
   @Benchmark fun getDeclaredMethodWithCache() {
     fun reflect(name: String, vararg params: Class<*>) =
-      membersCache.getOrPut(MemberCacheKey(Case::class.java, name, params, null)) {
+      membersCache.getOrPut(MemberCacheKey.Method(Case::class.java, name, params, null)) {
         Case::class.java.getDeclaredMethod(name, *params)
       }
 
@@ -135,7 +142,7 @@ open class ReflectionObjectAccessTests {
 
   @Benchmark fun getDeclaredFieldWithCache() {
     fun reflect(name: String) =
-      membersCache.getOrPut(MemberCacheKey(Case::class.java, name, null)) {
+      membersCache.getOrPut(MemberCacheKey.Field(Case::class.java, name, null)) {
         Case::class.java.getDeclaredField(name)
       }
 
@@ -163,7 +170,7 @@ open class ReflectionObjectAccessTests {
 
   @Benchmark fun filterDeclaredMethodWithCache() {
     fun reflect(name: String, vararg params: Class<*>) =
-      membersCache.getOrPut(MemberCacheKey(Case::class.java, name, params, null)) {
+      membersCache.getOrPut(MemberCacheKey.Method(Case::class.java, name, params, null)) {
         Case::class.java.declaredMethods.first {
           it.name == name && it.parameterTypes.contentEquals(params)
         }

@@ -22,10 +22,12 @@
 
 package com.meowool.cloak.internal
 
+import com.meowool.cloak.getStatic
 import com.meowool.cloak.matchBestConstructor
 import com.meowool.cloak.matchBestField
 import com.meowool.sweekt.castOrNull
 import com.meowool.sweekt.ifNull
+import com.meowool.sweekt.onNull
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Member
@@ -50,27 +52,47 @@ internal object ReflectionFactory {
   }
 
   fun <T : Any> newInstance(
-    clasѕ: Class<*>,
+    clasѕ: Class<T>,
     arguments: Array<*>,
     parameters: Array<Class<*>?>,
-  ): T = getOrPutMember(MemberCacheKey(clasѕ, parameters)) {
+  ): T = getOrPutMember(MemberCacheKey.Constructor(clasѕ, parameters)) {
     clasѕ.matchBestConstructor(*parameters)
-  }?.castOrNull<Constructor<*>>()?.run {
+  }?.castOrNull<Constructor<T>>().ifNull {
+    throw NoSuchMethodException(functionToString(clasѕ, "constructor", parameters, returns = null))
+  }.run {
     isAccessible = true
     requireMatchedArgs(resolveVarArgs(arguments), parameterTypes) { newInstance(*it) }
-  } as? T ?: throw NoSuchMethodException(functionToString(clasѕ, "constructor", parameters, returns = null))
+  }
 
-  fun <T : Any> get(
+  inline fun <reified T: Any> get(
     clasѕ: Class<*>,
     instance: Any?,
     name: String?,
     type: Class<*>?,
-  ): T = getOrPutMember(MemberCacheKey(clasѕ, name, type)) {
+  ): T = field(clasѕ, name, type).get(instance).let {
+    if (it !is T) throw ClassCastException(
+      "Cannot cast value $it of field '${fieldToString(clasѕ, name, type?.javaClass)}' to ${T::class.java.name}."
+    )
+    it
+  }
+
+  fun set(
+    clasѕ: Class<*>,
+    instance: Any?,
+    name: String?,
+    value: Any?,
+    type: Class<*>?,
+  ) = field(clasѕ, name, type).set(instance, value)
+
+  fun field(
+    clasѕ: Class<*>,
+    name: String?,
+    type: Class<*>?,
+  ): Field = getOrPutMember(MemberCacheKey.Field(clasѕ, name, type)) {
     clasѕ.matchBestField(name, type)
-  }.castOrNull<Field>()?.run {
-    isAccessible = true
-    get(instance)
-  } as? T ?: throw NoSuchFieldException(fieldToString(clasѕ, name, type))
+  }.castOrNull<Field>().ifNull {
+    throw NoSuchFieldException(fieldToString(clasѕ, name, type))
+  }.apply { isAccessible = true }
 
   private inline fun <M : Member> getOrPutMember(
     key: MemberCacheKey,
@@ -82,7 +104,7 @@ internal object ReflectionFactory {
   private inline fun <R> requireMatchedArgs(
     arguments: Array<*>,
     parameters: Array<Class<*>>,
-    block: (arguments: Array<*>) -> R?,
+    block: (arguments: Array<*>) -> R,
   ) = try {
     block(arguments)
   } catch (e: IllegalArgumentException) {
@@ -92,7 +114,7 @@ internal object ReflectionFactory {
     )
   }
 
-  private fun fieldToString(
+  fun fieldToString(
     clasѕ: Class<*>,
     name: String?,
     type: Class<*>?,
@@ -153,77 +175,83 @@ internal object ReflectionFactory {
    * this is basically the solution of performance traps in [XposedHelpers](https://github.com/LSPosed/LSPosed/blob/v1.7.2/core/src/main/java/de/robv/android/xposed/XposedHelpers.java#L56-L58).
    *
    * So in fact we only need to use the structural comparison results of the reflection object.
-   *
-   * TODO: Use Sweekt's info class to generate hashCode/equals automatically.
    */
-  internal class MemberCacheKey private constructor(
-    val kind: Kind,
-    val clasѕ: Class<*>,
-    val name: String?,
-    val parameters: Array<out Class<*>?>?,
-    val returns: Class<*>?,
-  ) {
-    internal enum class Kind {
-      METHOD,
-      CONSTRUCTOR,
-      FIELD,
-    }
+  internal sealed class MemberCacheKey {
 
-    /**
-     * Constructs a constructor key.
-     */
-    constructor(clasѕ: Class<*>, parameters: Array<out Class<*>?>) : this(
-      Kind.CONSTRUCTOR,
-      clasѕ,
-      name = null,
-      parameters,
-      returns = null
-    )
+    /** TODO: Use Sweekt's info class to generate hashCode/equals automatically. */
+    abstract override fun equals(other: Any?): Boolean
+    abstract override fun hashCode(): Int
 
-    /**
-     * Constructs a field key.
-     */
-    constructor(clasѕ: Class<*>, name: String?, type: Class<*>?) : this(
-      Kind.FIELD,
-      clasѕ,
-      name,
-      parameters = null,
-      type
-    )
+    class Constructor(
+      private val clasѕ: Class<*>,
+      private val parameters: Array<out Class<*>?>
+    ): MemberCacheKey() {
+      override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Constructor) return false
 
-    /**
-     * Constructs a method key.
-     */
-    constructor(
-      clasѕ: Class<*>,
-      name: String?,
-      parameters: Array<out Class<*>?>,
-      returns: Class<*>?,
-    ) : this(Kind.METHOD, clasѕ, name, parameters, returns)
-
-    override fun equals(other: Any?): Boolean {
-      if (this === other) return true
-      if (other !is MemberCacheKey) return false
-
-      if (kind != other.kind) return false
-      if (clasѕ != other.clasѕ) return false
-      if (name != other.name) return false
-      if (parameters != null) {
-        if (other.parameters == null) return false
+        if (clasѕ != other.clasѕ) return false
         if (!parameters.contentEquals(other.parameters)) return false
-      } else if (other.parameters != null) return false
-      if (returns != other.returns) return false
 
-      return true
+        return true
+      }
+
+      override fun hashCode(): Int {
+        var result = clasѕ.hashCode()
+        result = 31 * result + parameters.contentHashCode()
+        return result
+      }
     }
 
-    override fun hashCode(): Int {
-      var result = kind.hashCode()
-      result = 31 * result + clasѕ.hashCode()
-      result = 31 * result + (name?.hashCode() ?: 0)
-      result = 31 * result + (parameters?.contentHashCode() ?: 0)
-      result = 31 * result + (returns?.hashCode() ?: 0)
-      return result
+    class Field(
+      private val clasѕ: Class<*>,
+      private val name: String?,
+      private val type: Class<*>?
+    ): MemberCacheKey() {
+      override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Field) return false
+
+        if (clasѕ != other.clasѕ) return false
+        if (name != other.name) return false
+        if (type != other.type) return false
+
+        return true
+      }
+
+      override fun hashCode(): Int {
+        var result = clasѕ.hashCode()
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + (type?.hashCode() ?: 0)
+        return result
+      }
+    }
+
+    class Method(
+      private val clasѕ: Class<*>,
+      private val name: String?,
+      private val parameters: Array<out Class<*>?>,
+      private val returns: Class<*>?,
+    ): MemberCacheKey() {
+      override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Method) return false
+
+        if (clasѕ != other.clasѕ) return false
+        if (name != other.name) return false
+        if (!parameters.contentEquals(other.parameters)) return false
+        if (returns != other.returns) return false
+
+        return true
+      }
+
+      override fun hashCode(): Int {
+        var result = clasѕ.hashCode()
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + parameters.contentHashCode()
+        result = 31 * result + (returns?.hashCode() ?: 0)
+        return result
+      }
     }
   }
 }

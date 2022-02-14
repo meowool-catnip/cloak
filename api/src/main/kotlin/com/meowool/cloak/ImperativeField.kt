@@ -21,7 +21,6 @@
 package com.meowool.cloak
 
 import com.meowool.cloak.internal.ReflectionFactory
-import com.meowool.cloak.internal.compilerImplementation
 
 /**
  * Gets (reflects) the value of the field in this [Any] instance.
@@ -47,7 +46,27 @@ inline fun <reified T : Any> Any.get(
  *
  * @receiver A class type where the field to be set is located (aka. field's parent class).
  * @param name The name of the field to set.
- * @param value The new value to be set to the static field.
+ * @param value The new value to be set to the field.
+ * @param type The value type of the field to set, the default is [T].
+ * @param parent The class type where the field to set is located, the type of the receiver instance by default.
+ *
+ * @author 凛 (RinOrz)
+ */
+inline fun <reified T : Any> Any.set(
+  name: String,
+  value: T,
+  type: Type<T>? = Type(T::class.java),
+  parent: Type<*> = this.javaClass.type,
+): T = value.also {
+  ReflectionFactory.set(clasѕ = parent.javaClass, instance = this, name, value, type?.javaClass)
+}
+
+/**
+ * Sets (reflects) the [value] to the field in this [Type].
+ *
+ * @receiver A class type where the field to be set is located (aka. field's parent class).
+ * @param name The name of the field to set.
+ * @param value The new value to be set to the field.
  * @param type The value type of the field to set, the default is [T].
  * @param parent The class type where the field to set is located, the type of the receiver instance by default.
  *
@@ -58,7 +77,7 @@ inline fun <reified T : Any> Any.set(
   value: T?,
   type: Type<T>? = Type(T::class.java),
   parent: Type<*> = this.javaClass.type,
-): T = compilerImplementation()
+) = ReflectionFactory.set(clasѕ = parent.javaClass, instance = this, name, value, type?.javaClass)
 
 /**
  * Gets (reflects) the value of the static field in this [Type].
@@ -86,6 +105,24 @@ inline fun <reified T : Any> Type<*>.getStatic(
  */
 inline fun <reified T : Any> Type<*>.setStatic(
   name: String,
+  value: T,
+  type: Type<T>? = Type(T::class.java),
+): T = value.also {
+  ReflectionFactory.set(clasѕ = this.javaClass, instance = null, name, value, type?.javaClass)
+}
+
+/**
+ * Sets (reflects) the [value] to the static field in this [Type].
+ *
+ * @receiver A class type where the static field to be set is located (aka. field's parent class).
+ * @param name The name of the static field to set.
+ * @param value The new value to be set to the static field.
+ * @param type The value type of the static field to set, the default is [T].
+ *
+ * @author 凛 (RinOrz)
+ */
+inline fun <reified T : Any> Type<*>.setStatic(
+  name: String,
   value: T?,
   type: Type<T>? = Type(T::class.java),
-): T = compilerImplementation()
+) = ReflectionFactory.set(clasѕ = this.javaClass, instance = null, name, value, type?.javaClass)
