@@ -22,12 +22,10 @@
 
 package com.meowool.cloak.internal
 
-import com.meowool.cloak.getStatic
 import com.meowool.cloak.matchBestConstructor
 import com.meowool.cloak.matchBestField
 import com.meowool.sweekt.castOrNull
 import com.meowool.sweekt.ifNull
-import com.meowool.sweekt.onNull
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Member
@@ -64,7 +62,7 @@ internal object ReflectionFactory {
     requireMatchedArgs(resolveVarArgs(arguments), parameterTypes) { newInstance(*it) }
   }
 
-  inline fun <reified T: Any> get(
+  inline fun <reified T : Any> get(
     clasѕ: Class<*>,
     instance: Any?,
     name: String?,
@@ -185,7 +183,7 @@ internal object ReflectionFactory {
     class Constructor(
       private val clasѕ: Class<*>,
       private val parameters: Array<out Class<*>?>
-    ): MemberCacheKey() {
+    ) : MemberCacheKey() {
       override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Constructor) return false
@@ -207,7 +205,7 @@ internal object ReflectionFactory {
       private val clasѕ: Class<*>,
       private val name: String?,
       private val type: Class<*>?
-    ): MemberCacheKey() {
+    ) : MemberCacheKey() {
       override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Field) return false
@@ -232,7 +230,7 @@ internal object ReflectionFactory {
       private val name: String?,
       private val parameters: Array<out Class<*>?>,
       private val returns: Class<*>?,
-    ): MemberCacheKey() {
+    ) : MemberCacheKey() {
       override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Method) return false

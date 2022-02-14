@@ -1,3 +1,23 @@
+/*
+ * Copyright (c) 2022. The Meowool Organization Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * In addition, if you modified the project, you must include the Meowool
+ * organization URL in your code file: https://github.com/meowool
+ *
+ * 如果您修改了此项目，则必须确保源文件中包含 Meowool 组织 URL: https://github.com/meowool
+ */
 @file:Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "NOTHING_TO_INLINE")
 
 package com.meowool.cloak.internal
@@ -154,16 +174,16 @@ internal fun calculateDistanceBetween(
   //  - flattened case:      | ""    | true   | 1, 2
   //  - no vararg case:      | ""    | true   |
   if (when (hasVararg) {
-      false -> declared.size != passed.size
-      true -> passed.size < declared.lastIndex
-    }
+    false -> declared.size != passed.size
+    true -> passed.size < declared.lastIndex
+  }
   ) return MatchingDistance.Mismatch
 
   var totalDistance = 0
   // Directly check whether all parameter lists match
   if (declared.size == passed.size && declared.allIndexed { index, actualType ->
-      calculateDistanceBetween(passed[index], actualType, depth).also { totalDistance += it }.isMatched
-    }
+    calculateDistanceBetween(passed[index], actualType, depth).also { totalDistance += it }.isMatched
+  }
   ) return totalDistance else totalDistance = 0
 
   if (hasVararg) {
@@ -177,7 +197,7 @@ internal fun calculateDistanceBetween(
       }
     }
 
-    // Then, when no varargs passed, we need to add some weight
+    // Then, when no varargs passed, we need to add some distance
     if (passed.size == declared.lastIndex) return totalDistance + 3
 
     // Finally, we take out the type of the last vararg (array) parameter,

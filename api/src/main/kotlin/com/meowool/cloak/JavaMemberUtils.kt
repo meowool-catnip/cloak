@@ -79,15 +79,15 @@ fun <T> Class<T>.matchBestConstructor(vararg parameters: Class<*>?): Constructor
   var closest: Constructor<*>? = null
   var closestDistance = MatchingDistance.Mismatch
   declaredConstructors.forEach {
-    val currentWeight = calculateDistanceBetween(
+    val currentDistance = calculateDistanceBetween(
       passed = parameters,
       declared = it.parameterTypes,
       hasVararg = it.isVarArgs
     )
     // Current constructor is closer, so it's better
-    if (currentWeight.isMatched && (closest == null || currentWeight < closestDistance)) {
+    if (currentDistance.isMatched && (closest == null || currentDistance < closestDistance)) {
       closest = it
-      closestDistance = currentWeight
+      closestDistance = currentDistance
     }
   }
   closest
@@ -128,11 +128,11 @@ fun <T> Class<T>.matchBestConstructor(vararg parameters: Class<*>?): Constructor
  */
 fun <T> Class<T>.matchBestField(name: String?, type: Class<*>?): Field? {
   require(name != null || type != null) { "Either name or type must be specified." }
-  fun Class<*>.lookupField() = ReflectionFactory.lookup {
-    name?.let(::getDeclaredField)
-  }.orLookup {
-    name?.let(::getField)
-  }
+
+  fun Class<*>.lookupField() = ReflectionFactory
+    .lookup { name?.let(::getDeclaredField) }
+    .orLookup { name?.let(::getField) }
+
   return lookupField()?.takeIf { field ->
     // Ignore type
     if (type == null) return@takeIf true
@@ -140,21 +140,21 @@ fun <T> Class<T>.matchBestField(name: String?, type: Class<*>?): Field? {
   }.orLookup {
     // Depth matching fields, the closest result wins
     var closest: Field? = null
-    var closestWeight = MatchingDistance.Mismatch
+    var closestDistance = MatchingDistance.Mismatch
     var currentClass: Class<*>? = this
     while (currentClass != null) {
-      when(type) {
+      when (type) {
         // Ignore type, use the fastest direct implementation
         null -> currentClass.lookupField()?.also { return it }
 
         else -> currentClass.declaredFields.forEach {
           // Skip current field if it's name mismatched
           if (name != null && name != it.name) return@forEach
-          val currentWeight = calculateDistanceBetween(passed = type, declared = it.type, depth = true)
+          val currentDistance = calculateDistanceBetween(passed = type, declared = it.type, depth = true)
           // Current field is lighter, so it's better
-          if (currentWeight.isMatched && (closest == null || currentWeight < closestWeight)) {
+          if (currentDistance.isMatched && (closest == null || currentDistance < closestDistance)) {
             closest = it
-            closestWeight = currentWeight
+            closestDistance = currentDistance
           }
         }
       }
