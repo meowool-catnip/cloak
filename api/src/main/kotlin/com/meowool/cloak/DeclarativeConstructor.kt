@@ -55,7 +55,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * class IdMock : InstanceMoсk {
  *   override val actualType = Type("com.meowool.cloak.example.Id")
  *   companion object {
- *     operator fun invoke() = constructor()
+ *     operator fun invoke() = constructorNew()
  *   }
  * }
  *
@@ -63,7 +63,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *   override val actualType = Type("com.meowool.cloak.example.User")
  *   val message = field()
  *   companion object {
- *     operator fun invoke(id: IdMock) = constructor()
+ *     operator fun invoke(id: IdMock) = constructorNew()
  *   }
  * }
  *
@@ -89,7 +89,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *
  * @see Type.new
  */
-@CompileOnly fun <T : Any> Type<T>.constructor(
+@CompileOnly fun <T : Any> Type<T>.constructorNew(
   arguments: Array<*> = compilerImplementation(),
   parameters: Array<Type<*>?>? = null,
 ): T = compilerImplementation()
@@ -124,7 +124,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * class IdMock : InstanceMoсk {
  *   override val actualType = Type("com.meowool.cloak.example.Id")
  *   companion object {
- *     operator fun invoke() = constructor()
+ *     operator fun invoke() = constructorNew()
  *   }
  * }
  *
@@ -132,7 +132,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *   override val actualType = Type("com.meowool.cloak.example.User")
  *   val message = field()
  *   companion object {
- *     operator fun invoke(id: IdMock) = constructor()
+ *     operator fun invoke(id: IdMock) = constructorNew()
  *   }
  * }
  *
@@ -159,7 +159,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *
  * @see InstanceMock.Synthetic.new
  */
-@CompileOnly fun <T : Any> InstanceMock.Synthetic<T>.constructor(
+@CompileOnly fun <T : Any> InstanceMock.Synthetic<T>.constructorNew(
   arguments: Array<*> = compilerImplementation(),
   parameters: Array<Type<*>?>? = null,
-): T = this.actualType.constructor(arguments, parameters)
+): T = this.actualType.constructorNew(arguments, parameters)

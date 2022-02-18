@@ -50,7 +50,7 @@ package com.meowool.cloak
  *   companion object {
  *     private val Type = "com.example.DataGenerator".type
  *
- *     operator fun invoke(isLazy: Boolean): Any = Type.constructor()
+ *     operator fun invoke(isLazy: Boolean): Any = Type.constructorNew()
  *
  *     fun generate(generator: Any, input: Any): String = Type.staticMethodCall(
  *       params = arrayOf(Type, Any::class.type),
@@ -74,7 +74,7 @@ package com.meowool.cloak
  *   val identifier: Int by field()
  *
  *   companion object {
- *     operator fun invoke(isLazy: Boolean): DataGeneratorMock = constructor()
+ *     operator fun invoke(isLazy: Boolean): DataGeneratorMock = constructorNew()
  *     fun generate(generator: DataGeneratorMock, input: Any): String = staticMethodCall()
  *   }
  * }
