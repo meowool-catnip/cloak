@@ -47,6 +47,30 @@ import com.meowool.sweekt.castOrNull
 import com.meowool.sweekt.ifNull
 import java.lang.System.arraycopy
 import java.lang.reflect.Executable
+import kotlin.Any
+import kotlin.Array
+import kotlin.Boolean
+import kotlin.BooleanArray
+import kotlin.Byte
+import kotlin.ByteArray
+import kotlin.Char
+import kotlin.CharArray
+import kotlin.Double
+import kotlin.DoubleArray
+import kotlin.Float
+import kotlin.FloatArray
+import kotlin.Int
+import kotlin.IntArray
+import kotlin.Long
+import kotlin.LongArray
+import kotlin.NullPointerException
+import kotlin.PublishedApi
+import kotlin.Short
+import kotlin.ShortArray
+import kotlin.arrayOf
+import kotlin.arrayOfNulls
+import kotlin.emptyArray
+import kotlin.error
 import java.lang.reflect.Array as ReflectArray
 
 /**
@@ -54,7 +78,8 @@ import java.lang.reflect.Array as ReflectArray
  *
  * @author 凛 (RinOrz)
  */
-internal fun Any?.resolveType(): Class<*>? = when (this) {
+@PublishedApi
+internal fun Any?.resolveClass(): Class<*>? = when (this) {
   null -> null
   is InstanceMock<*> -> this.actualType.javaClass
   is ExplicitTypeInstance<*> -> this.type.javaClass
@@ -66,6 +91,7 @@ internal fun Any?.resolveType(): Class<*>? = when (this) {
  *
  * @author 凛 (RinOrz)
  */
+@PublishedApi
 internal fun Any?.resolveInstance(): Any? = when (this) {
   null -> null
   is InstanceMock<*> -> this.actual

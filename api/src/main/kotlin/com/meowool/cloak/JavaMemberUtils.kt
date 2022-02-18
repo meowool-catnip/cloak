@@ -27,8 +27,10 @@ import com.meowool.cloak.internal.MatchingDistance.isMatched
 import com.meowool.cloak.internal.ReflectionFactory
 import com.meowool.cloak.internal.ReflectionFactory.orLookup
 import com.meowool.cloak.internal.calculateDistanceBetween
+import com.meowool.sweekt.ifNull
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
+import java.lang.reflect.Method
 
 /**
  * Returns a constructor that best matches the given signatures.
@@ -160,6 +162,77 @@ fun <T> Class<T>.matchBestField(name: String?, type: Class<*>?): Field? {
       }
       // For performance reasons,
       //   the parent class will continue to be searched only when no matching field is found in current class.
+      if (closest == null) currentClass = currentClass.superclass else break
+    }
+    closest
+  }
+}
+
+/**
+ * Returns a field that best matches the given signatures.
+ *
+ * For example:
+ * ```
+ * interface Organism
+ * abstract class Animal
+ * class Cat : Animal(), Organism
+ *
+ * class Zoo {
+ *   fun init(): Result<Any>
+ *   fun getSameKind(organism: Organism): Organism
+ * }
+ *
+ * // fun init(): Result<Any>
+ * Zoo::class.java.matchBestMethod(null, null, returns = Result::class.java)
+ * Zoo::class.java.matchBestMethod("init")
+ *
+ * // fun getSameKind(organism: Organism): Organism
+ * Zoo::class.java.matchBestField("getSameKind", Cat::class.java)
+ * Zoo::class.java.matchBestField("getSameKind", Cat::class.java, returns = Animal::class.java)
+ * ```
+ *
+ * @author 凛 (RinOrz)
+ */
+fun <T> Class<T>.matchBestMethod(name: String?, vararg parameters: Class<*>?, returns: Class<*>?): Method? {
+  val method = name?.let {
+    ReflectionFactory.lookup { getDeclaredMethod(it, *parameters) }
+      .orLookup { getMethod(it, *parameters) }
+      ?.takeIf { method ->
+        // Ignore type
+        if (returns == null) return@takeIf true
+        returns canCastTo method.returnType
+      }
+  }
+
+  return method.ifNull {
+    // Depth matching methods, the closest result wins
+    var closest: Method? = null
+    var closestDistance = MatchingDistance.Mismatch
+    var currentClass: Class<*>? = this
+    while (currentClass != null) {
+      currentClass.declaredMethods.forEach {
+        // Skip current field if it's name mismatched
+        if (name != null && name != it.name) return@forEach
+        var currentDistance = calculateDistanceBetween(
+          passed = parameters,
+          declared = it.parameterTypes,
+          hasVararg = it.isVarArgs
+        )
+        if (returns != null) {
+          currentDistance += calculateDistanceBetween(
+            passed = returns,
+            declared = it.returnType,
+            depth = true
+          )
+        }
+        // Current method is lighter, so it's better
+        if (currentDistance.isMatched && (closest == null || currentDistance < closestDistance)) {
+          closest = it
+          closestDistance = currentDistance
+        }
+      }
+      // For performance reasons,
+      //   the parent class will continue to be searched only when no matching method is found in current class.
       if (closest == null) currentClass = currentClass.superclass else break
     }
     closest

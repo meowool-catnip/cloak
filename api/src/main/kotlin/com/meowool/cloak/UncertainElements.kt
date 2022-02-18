@@ -18,26 +18,12 @@
  *
  * 如果您修改了此项目，则必须确保源文件中包含 Meowool 组织 URL: https://github.com/meowool
  */
-package com.meowool.cloak.internal
+@file:Suppress("UNUSED_PARAMETER")
 
-/**
- * Returns a new array containing the results of applying the given [transform] function to each element in the
- * original array.
- *
- * @author 凛 (RinOrz)
- */
-// TODO: Move to sweekt
-inline fun <T, reified R> Array<out T>.fastMap(transform: (T) -> R): Array<R> =
-  Array(size) { transform(this[it]) }
+// TODO: 完善 UncertainElements
+package com.meowool.cloak
 
-/**
- * Returns `true` if all elements match the given [predicate].
- *
- * @author 凛 (RinOrz)
- */
-// TODO: Move to sweekt
-inline fun <T> Array<out T>.allIndexed(predicate: (index: Int, T) -> Boolean): Boolean {
-  var index = 0
-  for (element in this) if (!predicate(index++, element)) return false
-  return true
-}
+//import com.meowool.cloak.internal.CompileOnly
+//import com.meowool.cloak.internal.compilerImplementation
+//
+//@CompileOnly fun uncertainName(id: String): String = compilerImplementation()

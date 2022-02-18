@@ -45,14 +45,14 @@ package com.meowool.cloak
  * If we want to wrap the 'DataGenerator' class so that it can be reflected at any time, we usually like this:
  * ```
  * class DataGeneratorWrapper(val instance: Any) {
- *   val identifier: Int by instance.property()
+ *   val identifier: Int by instance.field()
  *
  *   companion object {
  *     private val Type = "com.example.DataGenerator".type
  *
- *     operator fun invoke(isLazy: Boolean): Any = Type.delegateNew()
+ *     operator fun invoke(isLazy: Boolean): Any = Type.constructor()
  *
- *     fun generate(generator: Any, input: Any): String = Type.delegateStaticCall(
+ *     fun generate(generator: Any, input: Any): String = Type.staticMethodCall(
  *       params = arrayOf(Type, Any::class.type),
  *     )
  *   }
@@ -64,18 +64,18 @@ package com.meowool.cloak
  *   println("Generated: $result")
  * }
  * ```
- * But this way is not very good, because it violates the principle of strong typing design. When we call the 'generate'
+ * But this way is not so good, because it violates the principle of strong typing design. When we call the 'generate'
  * function, we may forget what type the first parameter is, so we prefer it to be type-safe and write less code.
  * So if we use [InstanceMock], we can get the following code:
  * ```
  * class DataGeneratorMock : InstanceMock {
  *   override val type = "com.example.DataGenerator".type
  *
- *   val identifier: Int by property()
+ *   val identifier: Int by field()
  *
  *   companion object {
- *     operator fun invoke(isLazy: Boolean): DataGeneratorMock = delegateNew()
- *     fun generate(generator: DataGeneratorMock, input: Any): String = delegateStaticCall()
+ *     operator fun invoke(isLazy: Boolean): DataGeneratorMock = constructor()
+ *     fun generate(generator: DataGeneratorMock, input: Any): String = staticMethodCall()
  *   }
  * }
  *
@@ -115,15 +115,22 @@ interface InstanceMock<T : Any> {
   /** override fun hashCode(): Int = actual.hashCode() */
 
   /**
-   * companion object {
+   * A synthetic companion interface.
    *
-   *   /**
-   *    * The actual type of the mock class.
-   *    */
-   *   val actualType: Type<T>
+   * All classes that inherit [InstanceMock] will automatically create a companion object and implement this interface,
+   * therefore, this interface should not be implemented manually.
    *
-   * }
+   * @author 凛 (RinOrz)
    */
+  interface Synthetic<T : Any> {
+
+    /**
+     * The actual type of the host mock class.
+     *
+     * @see InstanceMock.actualType
+     */
+    val actualType: Type<T>
+  }
 }
 
 /**

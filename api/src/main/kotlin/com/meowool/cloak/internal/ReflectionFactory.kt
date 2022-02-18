@@ -24,11 +24,13 @@ package com.meowool.cloak.internal
 
 import com.meowool.cloak.matchBestConstructor
 import com.meowool.cloak.matchBestField
+import com.meowool.cloak.matchBestMethod
 import com.meowool.sweekt.castOrNull
 import com.meowool.sweekt.ifNull
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Member
+import java.lang.reflect.Method
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -38,7 +40,9 @@ import java.util.concurrent.ConcurrentHashMap
  */
 @PublishedApi
 internal object ReflectionFactory {
-  private val membersCache = ConcurrentHashMap<MemberCacheKey, Member>(100)
+  // TODO: Considering that too many caches may bring hash search pressure,
+  //  we may need to store different kinds of caches in different maps.
+  private val membersCache = ConcurrentHashMap<MemberCacheKey, Member>(128)
 
   init {
     // Let 'jdk.internal.reflect.ReflectionFactory' use the 'MethodAccessorGenerator'
@@ -67,9 +71,10 @@ internal object ReflectionFactory {
     instance: Any?,
     name: String?,
     type: Class<*>?,
-  ): T = field(clasѕ, name, type).get(instance).let {
+  ): T? = field(clasѕ, name, type).get(instance).let {
+    if (it == null) return null
     if (it !is T) throw ClassCastException(
-      "Cannot cast value $it of field '${fieldToString(clasѕ, name, type?.javaClass)}' to ${T::class.java.name}."
+      "Cannot cast value $it of field '${fieldToString(clasѕ, name, type)}' to ${T::class.java.name}."
     )
     it
   }
@@ -91,6 +96,34 @@ internal object ReflectionFactory {
   }.castOrNull<Field>().ifNull {
     throw NoSuchFieldException(fieldToString(clasѕ, name, type))
   }.apply { isAccessible = true }
+
+  fun <R : Any> call(
+    clasѕ: Class<*>,
+    instance: Any?,
+    name: String?,
+    arguments: Array<*>,
+    parameters: Array<Class<*>?>,
+    returns: Class<*>?,
+    returnType: Class<R>,
+  ): R? = getOrPutMember(MemberCacheKey.Method(clasѕ, name, parameters, returns)) {
+    clasѕ.matchBestMethod(name, *parameters, returns = returns)
+  }?.castOrNull<Method>().ifNull {
+    throw NoSuchMethodException(functionToString(clasѕ, name, parameters, returns))
+  }.run {
+    isAccessible = true
+    val returnsValue = requireMatchedArgs(resolveVarArgs(arguments), parameterTypes) {
+      invoke(instance, *it)
+    } ?: return null
+
+    if (!returnType.isInstance(returnsValue)) {
+      val reportOn = functionToString(clasѕ, this.name, this.parameterTypes, this.returnType)
+      throw ClassCastException(
+        "Cannot cast return value $returnsValue of method '$reportOn' to ${returnType.name}."
+      )
+    }
+
+    returnsValue as? R
+  }
 
   private inline fun <M : Member> getOrPutMember(
     key: MemberCacheKey,
@@ -128,12 +161,12 @@ internal object ReflectionFactory {
 
   private fun functionToString(
     clasѕ: Class<*>,
-    name: String,
+    name: String?,
     parameters: Array<Class<*>?>,
     returns: Class<*>?,
   ): String = buildString(
     5 + clasѕ.name.length +
-      name.length +
+      (name?.length ?: 4) +
       parameters.sumOf { it?.name?.length?.plus(2) ?: 6 } +
       (returns?.name?.length ?: 4)
   ) {
