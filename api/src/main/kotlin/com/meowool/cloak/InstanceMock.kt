@@ -23,7 +23,7 @@
 package com.meowool.cloak
 
 /**
- * Used to mock a class that inherited from [T] that exist in the runtime but cannot be accessed directly.
+ * Used to mock a class that inherited from [T] that exist in the run time but cannot be accessed directly.
  *
  * In fact, the behavior of this interface is similar to that of an ordinary boxing class, but it allows you to
  * implicitly write Cloak reflection code to make the behavior simpler and look less "reflect". In short, mock is not a
@@ -134,7 +134,7 @@ interface InstanceMock<T : Any> {
 }
 
 /**
- * Used to mock a class that exists in the runtime but cannot be accessed directly.
+ * Used to mock a class that exists in the run time but cannot be accessed directly.
  *
  * @author 凛 (RinOrz)
  * @see InstanceMock<T: Any>

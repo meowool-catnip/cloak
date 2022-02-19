@@ -1,8 +1,8 @@
 public final class com/meowool/cloak/DeclarativeConstructorKt {
-	public static final fun constructor (Lcom/meowool/cloak/InstanceMock$Synthetic;[Ljava/lang/Object;[Lcom/meowool/cloak/Type;)Ljava/lang/Object;
-	public static synthetic fun constructor$default (Lcom/meowool/cloak/InstanceMock$Synthetic;[Ljava/lang/Object;[Lcom/meowool/cloak/Type;ILjava/lang/Object;)Ljava/lang/Object;
-	public static final fun constructor-QktDPF4 (Ljava/lang/Object;[Ljava/lang/Object;[Lcom/meowool/cloak/Type;)Ljava/lang/Object;
-	public static synthetic fun constructor-QktDPF4$default (Ljava/lang/Object;[Ljava/lang/Object;[Lcom/meowool/cloak/Type;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun constructorNew (Lcom/meowool/cloak/InstanceMock$Synthetic;[Ljava/lang/Object;[Lcom/meowool/cloak/Type;)Ljava/lang/Object;
+	public static synthetic fun constructorNew$default (Lcom/meowool/cloak/InstanceMock$Synthetic;[Ljava/lang/Object;[Lcom/meowool/cloak/Type;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun constructorNew-QktDPF4 (Ljava/lang/Object;[Ljava/lang/Object;[Lcom/meowool/cloak/Type;)Ljava/lang/Object;
+	public static synthetic fun constructorNew-QktDPF4$default (Ljava/lang/Object;[Ljava/lang/Object;[Lcom/meowool/cloak/Type;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class com/meowool/cloak/DeclarativeFieldKt {
@@ -103,6 +103,20 @@ public final class com/meowool/cloak/JavaMemberUtilsKt {
 	public static final fun matchBestConstructor (Ljava/lang/Class;[Ljava/lang/Class;)Ljava/lang/reflect/Constructor;
 	public static final fun matchBestField (Ljava/lang/Class;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/reflect/Field;
 	public static final fun matchBestMethod (Ljava/lang/Class;Ljava/lang/String;[Ljava/lang/Class;Ljava/lang/Class;)Ljava/lang/reflect/Method;
+}
+
+public final class com/meowool/cloak/UncertainElementsKt {
+	public static final fun be (Ljava/lang/String;Ljava/lang/Object;)Lcom/meowool/cloak/UncertainEntry;
+	public static final fun uncertainAnyType (Ljava/lang/String;)Ljava/lang/Object;
+	public static final fun uncertainArguments (Ljava/lang/String;[Lcom/meowool/cloak/UncertainEntry;)[Ljava/lang/Object;
+	public static final fun uncertainFieldName (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun uncertainMethodName (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun uncertainParameters (Ljava/lang/String;[Lcom/meowool/cloak/UncertainEntry;)[Lcom/meowool/cloak/Type;
+	public static final fun uncertainType (Ljava/lang/String;)Ljava/lang/Object;
+}
+
+public final class com/meowool/cloak/UncertainEntry {
+	public fun <init> ()V
 }
 
 public final class com/meowool/cloak/internal/ArrayUtilsKt {

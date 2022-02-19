@@ -30,19 +30,19 @@ import kotlin.reflect.KClass
 import java.lang.Class.forName as classOf
 
 /**
- * Safe type representation of a runtime class.
+ * Safe type representation of a run time class.
  *
  * @author 凛 (RinOrz)
  */
 @JvmInline value class Type<T : Any> @PublishedApi internal constructor(private val actual: Any) {
 
   /**
-   * Tries to return the actual type value as an instance of the java runtime class.
+   * Tries to return the actual type value as an instance of the java run time class.
    */
   val javaClass: Class<T> get() = actual.castOrNull<Class<T>>() ?: classOf(qualifiedName).cast()
 
   /**
-   * Tries to return the actual type value as an instance of the kotlin runtime class.
+   * Tries to return the actual type value as an instance of the kotlin run time class.
    */
   val kotlinClass: KClass<T> get() = javaClass.kotlin
 
@@ -60,7 +60,7 @@ import java.lang.Class.forName as classOf
 }
 
 /**
- * Type representation of a java runtime class.
+ * Type representation of a java run time class.
  *
  * @param value Java class corresponding to type.
  * @author 凛 (RinOrz)
@@ -68,7 +68,7 @@ import java.lang.Class.forName as classOf
 inline fun <reified T : Any> Type(value: Class<out T>): Type<T> = Type(actual = value)
 
 /**
- * Type representation of a kotlin runtime class.
+ * Type representation of a kotlin run time class.
  *
  * @param value Kotlin class corresponding to type.
  * @author 凛 (RinOrz)
@@ -76,7 +76,7 @@ inline fun <reified T : Any> Type(value: Class<out T>): Type<T> = Type(actual = 
 inline fun <reified T : Any> Type(value: KClass<out T> = T::class): Type<T> = Type(actual = value.java)
 
 /**
- * Type char sequence representation of a runtime class.
+ * Type char sequence representation of a run time class.
  *
  * @param value Type value, which can be the descriptor of the class or the qualified name of the class.
  * @author 凛 (RinOrz)
@@ -84,7 +84,7 @@ inline fun <reified T : Any> Type(value: KClass<out T> = T::class): Type<T> = Ty
 inline fun <reified T : Any> Type(value: String): Type<T> = Type(actual = value)
 
 /**
- * Type char sequence representation of a runtime class.
+ * Type char sequence representation of a run time class.
  *
  * @param value Type value, which can be the descriptor of the class or the qualified name of the class.
  * @author 凛 (RinOrz)
