@@ -22,6 +22,6 @@ package com.meowool.cloak
 
 /**
  * TODO
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 class ImperativeFieldTests

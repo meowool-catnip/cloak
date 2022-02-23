@@ -56,7 +56,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @param holder The class type where the field to be reflected is located, the default is the type of the
  *   receiver instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see set
  * @see get
@@ -116,7 +116,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @param name The name of the field to be reflected, the default is used the name of the caller's declaration.
  * @param type The value type of the field to be reflected, the default is [T] (that is `T::class.type`).
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.setStatic
  * @see Type.getStatic
@@ -174,7 +174,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @param name The name of the field to be reflected, the default is used the name of the caller's declaration.
  * @param type The value type of the field to be reflected, the default is [T] (that is `T::class.type`).
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.setStatic
  * @see InstanceMock.Synthetic.getStatic

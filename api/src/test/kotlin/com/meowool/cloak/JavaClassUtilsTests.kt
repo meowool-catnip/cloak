@@ -32,7 +32,7 @@ import java.util.AbstractMap
 /**
  * Test for 'com/meowool/cloak/JavaClassUtilsTests.kt'.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 class JavaClassUtilsTests {
   private val primitiveTypes = arrayOfPrimitives()

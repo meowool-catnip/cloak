@@ -74,7 +74,7 @@ import com.meowool.cloak.internal.resolveInstance
  * @param returns The return type of the method to call, the default is [R].
  * @param holder The class type where the method to call is located, the default is the type of the receiver instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see methodCall
  */
@@ -131,7 +131,7 @@ inline fun <reified R : Any> Any.call(
  * @param returns The return type of the method to call, the default is [R].
  * @param holder The class type where the method to call is located, the default is the type of the receiver instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see methodCall
  */
@@ -190,7 +190,7 @@ inline fun <reified R : Any> Any.callNullable(
  *
  * @param holder The class type where the method to call is located, the default is the type of the receiver instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see methodCall
  */
@@ -222,7 +222,7 @@ inline fun Any.callVoid(
  *
  * @param returns The return type of the static method to call, the default is [R].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.staticMethodCall
  */
@@ -252,7 +252,7 @@ inline fun <reified R : Any> Type<*>.callStatic(
  *
  * @param returns The return type of the static method to call, the default is [R].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.staticMethodCall
  */
@@ -288,7 +288,7 @@ inline fun <reified R : Any> Type<*>.callStaticNullable(
  *   it should be consistent with the number of [arguments] (except for function with varargs).
  *   the default is the inference of the arguments instances (similar to `args.map { it?.javaClass }`).
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.staticMethodCall
  */
@@ -320,7 +320,7 @@ inline fun Type<*>.callStaticVoid(
  *
  * @param returns The return type of the static method to call, the default is [R].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.staticMethodCall
  */
@@ -351,7 +351,7 @@ inline fun <reified R : Any> InstanceMock.Synthetic<*>.callStatic(
  *
  * @param returns The return type of the static method to call, the default is [R].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.staticMethodCall
  */
@@ -388,7 +388,7 @@ inline fun <reified R : Any> InstanceMock.Synthetic<*>.callStaticNullable(
  *   it should be consistent with the number of [arguments] (except for function with varargs).
  *   the default is the inference of the arguments instances (similar to `args.map { it?.javaClass }`).
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.staticMethodCall
  */

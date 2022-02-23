@@ -65,7 +65,7 @@ import com.meowool.cloak.internal.resolveInstance
  *   it should be consistent with the number of [arguments] (except for function with varargs).
  *   the default is the inference of the arguments instances (similar to `args.map { it?.javaClass }`).
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.constructorNew
  */
@@ -117,7 +117,7 @@ fun <T : Any> Type<T>.new(
  *   it should be consistent with the number of [arguments] (except for function with varargs).
  *   the default is the inference of the arguments instances (similar to `args.map { it?.javaClass }`).
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.constructorNew
  */

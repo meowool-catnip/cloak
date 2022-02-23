@@ -50,7 +50,7 @@ import java.lang.Short as ShortObject
 /**
  * Returns `true` if this class is an object type.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 val Class<*>.isObject: Boolean
   get() = when {
@@ -61,63 +61,63 @@ val Class<*>.isObject: Boolean
 /**
  * Returns `true` if this class is a [Byte] type or [Byte] wrapper type.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isBytePrimitiveOrWrapper: Boolean get() = this == BYTE_OBJECT || this == ByteObject.TYPE
 
 /**
  * Returns `true` if this class is a [Short] type or [Short] wrapper type.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isShortPrimitiveOrWrapper: Boolean get() = this == SHORT_OBJECT || this == ShortObject.TYPE
 
 /**
  * Returns `true` if this class is a [Int] type or [Int] wrapper type.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isIntPrimitiveOrWrapper: Boolean get() = this == INT_OBJECT || this == IntObject.TYPE
 
 /**
  * Returns `true` if this class is a [Long] type or [Long] wrapper type.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isLongPrimitiveOrWrapper: Boolean get() = this == LONG_OBJECT || this == LongObject.TYPE
 
 /**
  * Returns `true` if this class is a [Float] type or [Float] wrapper type.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isFloatPrimitiveOrWrapper: Boolean get() = this == FLOAT_OBJECT || this == FloatObject.TYPE
 
 /**
  * Returns `true` if this class is a [Double] type or [Double] wrapper type.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isDoublePrimitiveOrWrapper: Boolean get() = this == DOUBLE_OBJECT || this == DoubleObject.TYPE
 
 /**
  * Returns `true` if this class is a [Boolean] type or [Boolean] wrapper type.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isBooleanPrimitiveOrWrapper: Boolean get() = this == BOOLEAN_OBJECT || this == BooleanObject.TYPE
 
 /**
  * Returns `true` if this class is a [Char] type or [Char] wrapper type.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isCharPrimitiveOrWrapper: Boolean get() = this == CHAR_OBJECT || this == CharObject.TYPE
 
 /**
  * Returns `true` if this class is a primitive wrapper class.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 val Class<*>.isPrimitiveWrapper: Boolean
   get() = when {
@@ -138,7 +138,7 @@ val Class<*>.isPrimitiveWrapper: Boolean
 /**
  * Returns `true` if this class is a primitive wrapper class.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 val Class<*>.isPrimitiveOrPrimitiveArray: Boolean
   get() = when {
@@ -149,7 +149,7 @@ val Class<*>.isPrimitiveOrPrimitiveArray: Boolean
 /**
  * Returns `true` if this class is a primitive or wrapper class.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isPrimitiveOrWrapper: Boolean
   get() = isPrimitiveOrPrimitiveArray || isPrimitiveWrapper || this == Void.TYPE
@@ -157,7 +157,7 @@ inline val Class<*>.isPrimitiveOrWrapper: Boolean
 /**
  * Returns `true` if this class is a primitive number class.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 val Class<*>.isPrimitiveNumber: Boolean
   get() = this == ByteObject.TYPE ||
@@ -170,14 +170,14 @@ val Class<*>.isPrimitiveNumber: Boolean
 /**
  * Returns `true` if this class is a primitive wrapper class.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isBoxedNumber: Boolean get() = NUMBER_OBJECT.isAssignableFrom(this)
 
 /**
  * Returns `true` if this class is kind of number.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Class<*>.isNumber: Boolean get() = isPrimitiveNumber || isBoxedNumber
 
@@ -185,7 +185,7 @@ inline val Class<*>.isNumber: Boolean get() = isPrimitiveNumber || isBoxedNumber
  * Returns an array that contains all the classes of primitives.
  *
  * @param containVoid Whether to include [Void.TYPE] in the array.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 fun arrayOfPrimitives(containVoid: Boolean = false): Array<Class<out Any>> = when {
   containVoid -> arrayOf(
@@ -215,7 +215,7 @@ fun arrayOfPrimitives(containVoid: Boolean = false): Array<Class<out Any>> = whe
  * Returns an array that contains all the classes of primitive wrappers.
  *
  * @param containVoid Whether to include [Void] in the array.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 fun arrayOfPrimitiveWrappers(containVoid: Boolean = false): Array<Class<out Any>> = when {
   containVoid -> arrayOf(
@@ -244,7 +244,7 @@ fun arrayOfPrimitiveWrappers(containVoid: Boolean = false): Array<Class<out Any>
 /**
  * Returns an unboxing class. If this class is not a primitive wrapper type, nothing will be done.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 fun <T> Class<T>.unboxing(): Class<T> {
   if (isPrimitive) return this
@@ -266,7 +266,7 @@ fun <T> Class<T>.unboxing(): Class<T> {
 /**
  * Returns a boxed object class. If this class is not a primitive type, nothing will be done.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 fun <T> Class<T>.boxing(): Class<T> {
   if (!isPrimitive) return this
@@ -301,7 +301,7 @@ fun <T> Class<T>.boxing(): Class<T> {
  *   the conditions are `true`, because expressions like `(double) Double.valueOf(1.0)` or `(Double) 1.0` are
  *   allowed in Java.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline infix fun Any?.canCastTo(base: Class<*>): Boolean = when (this) {
   is Class<*> -> this canCastTo base
@@ -324,7 +324,7 @@ inline infix fun Any?.canCastTo(base: Class<*>): Boolean = when (this) {
  *   the conditions are `true`, because expressions like `(double) Double.valueOf(1.0)` or `(Double) 1.0` are
  *   allowed in Java.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 infix fun Class<*>?.canCastTo(base: Class<*>): Boolean = calculateDistanceBetween(
   declared = base,

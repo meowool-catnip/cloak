@@ -23,7 +23,7 @@ package com.meowool.cloak.internal
 /**
  * Represents that the member marked with annotation will be deleted at compile time.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @InternalCloakApi
 @Retention(AnnotationRetention.SOURCE)

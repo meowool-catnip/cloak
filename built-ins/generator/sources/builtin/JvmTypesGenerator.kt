@@ -7,7 +7,7 @@ import java.util.Observer
 import java.util.Vector
 
 /**
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 class JvmTypesGenerator : TypesGenerator(Platform.Jvm) {
   @Test fun generateJdkTypes(): Unit = generateTypes(

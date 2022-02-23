@@ -56,7 +56,7 @@ import com.meowool.cloak.internal.ReflectionFactory
  * @param type The value type of the field to get, the default is [T].
  * @param holder The class type where the field to get is located, the default is the type of the receiver instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see field
  */
@@ -101,7 +101,7 @@ inline fun <reified T : Any> Any.get(
  * @param type The value type of the field to get, the default is [T].
  * @param holder The class type where the field to get is located, the default is the type of the receiver instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see field
  */
@@ -151,7 +151,7 @@ inline fun <reified T : Any> Any.getNullable(
  * @param type The value type of the field to set, the default is [T].
  * @param holder The class type where the field to set is located, the default is the type of the receiver instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see field
  */
@@ -204,7 +204,7 @@ inline fun <reified T : Any> Any.set(
  * @param type The value type of the field to set, the default is [T].
  * @param holder The class type where the field to set is located, the default is the type of the receiver instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see field
  */
@@ -229,7 +229,7 @@ inline fun <reified T : Any> Any.set(
  * @param name The name of the static field to get.
  * @param type The value type of the static field to get, the default is [T].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.staticField
  */
@@ -252,7 +252,7 @@ inline fun <reified T : Any> Type<*>.getStatic(
  * @param name The name of the static field to get.
  * @param type The value type of the static field to get, the default is [T].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.staticField
  */
@@ -276,7 +276,7 @@ inline fun <reified T : Any> Type<*>.getStaticNullable(
  * @param name The name of the static field to get.
  * @param type The value type of the static field to get, the default is [T].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.staticField
  */
@@ -300,7 +300,7 @@ inline fun <reified T : Any> InstanceMock.Synthetic<*>.getStatic(
  * @param name The name of the static field to get.
  * @param type The value type of the static field to get, the default is [T].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.staticField
  */
@@ -324,7 +324,7 @@ inline fun <reified T : Any> InstanceMock.Synthetic<*>.getStaticNullable(
  * @param value The new value to be set to the static field.
  * @param type The value type of the static field to set, the default is [T].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.staticField
  */
@@ -351,7 +351,7 @@ inline fun <reified T : Any> Type<*>.setStatic(
  * @param value The new value to be set to the static field.
  * @param type The value type of the static field to set, the default is [T].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.staticField
  */
@@ -377,7 +377,7 @@ inline fun <reified T : Any> Type<*>.setStatic(
  * @param value The new value to be set to the static field.
  * @param type The value type of the static field to set, the default is [T].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.staticField
  */
@@ -403,7 +403,7 @@ inline fun <reified T : Any> InstanceMock.Synthetic<*>.setStatic(
  * @param value The new value to be set to the static field.
  * @param type The value type of the static field to set, the default is [T].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.staticField
  */

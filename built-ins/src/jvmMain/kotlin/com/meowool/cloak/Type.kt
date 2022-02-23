@@ -32,7 +32,7 @@ import java.lang.Class.forName as classOf
 /**
  * Safe type representation of a run time class.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @JvmInline value class Type<T : Any> @PublishedApi internal constructor(private val actual: Any) {
 
@@ -63,7 +63,7 @@ import java.lang.Class.forName as classOf
  * Type representation of a java run time class.
  *
  * @param value Java class corresponding to type.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline fun <reified T : Any> Type(value: Class<out T>): Type<T> = Type(actual = value)
 
@@ -71,7 +71,7 @@ inline fun <reified T : Any> Type(value: Class<out T>): Type<T> = Type(actual = 
  * Type representation of a kotlin run time class.
  *
  * @param value Kotlin class corresponding to type.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline fun <reified T : Any> Type(value: KClass<out T> = T::class): Type<T> = Type(actual = value.java)
 
@@ -79,7 +79,7 @@ inline fun <reified T : Any> Type(value: KClass<out T> = T::class): Type<T> = Ty
  * Type char sequence representation of a run time class.
  *
  * @param value Type value, which can be the descriptor of the class or the qualified name of the class.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline fun <reified T : Any> Type(value: String): Type<T> = Type(actual = value)
 
@@ -87,7 +87,7 @@ inline fun <reified T : Any> Type(value: String): Type<T> = Type(actual = value)
  * Type char sequence representation of a run time class.
  *
  * @param value Type value, which can be the descriptor of the class or the qualified name of the class.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @JvmName("AnyType")
 inline fun Type(value: String): Type<Any> = Type(actual = value)
@@ -95,20 +95,20 @@ inline fun Type(value: String): Type<Any> = Type(actual = value)
 /**
  * Returns a [Type] from this [KClass].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val <T : Any> KClass<out T>.type: Type<T> get() = Type(actual = this.java)
 
 /**
  * Returns a [Type] from this [Class].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val <T : Any> Class<out T>.type: Type<T> get() = Type(actual = this)
 
 /**
  * Returns a [Type] from this [String].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val String.type: Type<Any> get() = Type(this)

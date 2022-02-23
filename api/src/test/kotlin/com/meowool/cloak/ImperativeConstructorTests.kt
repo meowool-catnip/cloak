@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test
 /**
  * Test for 'com/meowool/cloak/ImperativeConstructor.kt'.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 class ImperativeConstructorTests {
   @Test fun `cannot create an instance of a class without any constructor matching`() {

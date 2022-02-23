@@ -78,7 +78,7 @@ import androidx.fragment.app.DialogFragment as DialogFragmentX
 import androidx.fragment.app.Fragment as FragmentX
 
 /**
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 class AndroidTypesGenerator : TypesGenerator(Platform.Android) {
   @Test fun generateSystemTypes(): Unit = generateTypes(

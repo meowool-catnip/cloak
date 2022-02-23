@@ -36,7 +36,7 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * Provides an internal implementation of reflection capabilities.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @PublishedApi
 internal object ReflectionFactory {

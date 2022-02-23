@@ -86,7 +86,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *   it should be consistent with the number of [arguments] (except for function with varargs).
  *   the default is the inference of the arguments instances (similar to `args.map { it?.javaClass }`).
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.new
  */
@@ -157,7 +157,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *   it should be consistent with the number of [arguments] (except for function with varargs).
  *   the default is the inference of the arguments instances (similar to `args.map { it?.javaClass }`).
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.new
  */

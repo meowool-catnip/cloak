@@ -76,7 +76,7 @@ import java.lang.reflect.Array as ReflectArray
 /**
  * Returns the resolved type of this instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @PublishedApi
 internal fun Any?.resolveClass(): Class<*>? = when (this) {
@@ -89,7 +89,7 @@ internal fun Any?.resolveClass(): Class<*>? = when (this) {
 /**
  * Returns the resolved instance of this instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @PublishedApi
 internal fun Any?.resolveInstance(): Any? = when (this) {
@@ -104,7 +104,7 @@ internal fun Any?.resolveInstance(): Any? = when (this) {
  *
  * [Reference](https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java#L465)
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 internal fun Executable.resolveVarArgs(arguments: Array<*>): Array<*> {
   if (!isVarArgs) return arguments
@@ -222,7 +222,7 @@ private fun Array<*>.toPrimitiveArray(arrayType: Class<*> = javaClass.componentT
  *
  * @receiver an array of primitive object
  * @return an array of the corresponding primitive wrapper type, or the original array
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 private fun Array<*>.toObjectArray(arrayType: Class<*> = javaClass.componentType): Any {
   fun boxing(index: Int, expectedType: Class<*>): Any? = get(index)?.castToPrimitiveWrapper(expectedType)
@@ -258,7 +258,7 @@ private fun Array<*>.toObjectArray(arrayType: Class<*> = javaClass.componentType
  * true        -> true as java.lang.Boolean
  * Byte(0)     -> 0.toDouble()
  * ```
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 private infix fun Any.castToPrimitiveWrapper(expectedType: Class<*>): Any {
   val actualType = javaClass

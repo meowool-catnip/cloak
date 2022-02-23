@@ -72,7 +72,7 @@ import java.lang.reflect.Method
  * Zoo::class.java.matchBestConstructor(String::class.java, Array<Cat>::class.java)
  * ```
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 fun <T> Class<T>.matchBestConstructor(vararg parameters: Class<*>?): Constructor<T>? = ReflectionFactory.lookup {
   getDeclaredConstructor(*parameters)
@@ -126,7 +126,7 @@ fun <T> Class<T>.matchBestConstructor(vararg parameters: Class<*>?): Constructor
  * Zoo::class.java.matchBestField(null, Array<Animal>::class.java)
  * ```
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 fun <T> Class<T>.matchBestField(name: String?, type: Class<*>?): Field? {
   require(name != null || type != null) { "Either name or type must be specified." }
@@ -191,7 +191,7 @@ fun <T> Class<T>.matchBestField(name: String?, type: Class<*>?): Field? {
  * Zoo::class.java.matchBestField("getSameKind", Cat::class.java, returns = Animal::class.java)
  * ```
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 fun <T> Class<T>.matchBestMethod(name: String?, vararg parameters: Class<*>?, returns: Class<*>?): Method? {
   val method = name?.let {

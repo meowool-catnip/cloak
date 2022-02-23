@@ -24,7 +24,7 @@ package com.meowool.cloak.internal
  * Returns a new array containing the results of applying the given [transform] function to each element in the
  * original array.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 // TODO: Move to sweekt
 inline fun <T, reified R> Array<out T>.fastMap(transform: (T) -> R): Array<R> =
@@ -33,7 +33,7 @@ inline fun <T, reified R> Array<out T>.fastMap(transform: (T) -> R): Array<R> =
 /**
  * Returns `true` if all elements match the given [predicate].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 // TODO: Move to sweekt
 inline fun <T> Array<out T>.allIndexed(predicate: (index: Int, T) -> Boolean): Boolean {

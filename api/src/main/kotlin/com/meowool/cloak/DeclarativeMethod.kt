@@ -68,7 +68,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @param holder The class type where the method to be reflected is located, the default is the type of the
  *   receiver instance.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see call
  * @see callVoid
@@ -123,7 +123,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *
  * @param returns The return type of the static method to be reflected, the default is [R] (that is `R::class.type`).
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see Type.callStatic
  * @see Type.callStaticVoid
@@ -179,7 +179,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *
  * @param returns The return type of the static method to be reflected, the default is [R] (that is `R::class.type`).
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see InstanceMock.Synthetic.callStatic
  * @see InstanceMock.Synthetic.callStaticVoid

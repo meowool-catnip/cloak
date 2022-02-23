@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 /**
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 class ClassTest {
   @Test fun testNames() {

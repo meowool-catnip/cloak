@@ -89,7 +89,7 @@ package com.meowool.cloak
  * a real instance, so in fact, all reflections are based on the real instance.
  *
  * @param T Accessible superclass of the actual type to mock
- * @author 凛 (RinOrz)
+ * @author RinOrz
  * @see InstanceMoсk
  */
 interface InstanceMock<T : Any> {
@@ -120,7 +120,7 @@ interface InstanceMock<T : Any> {
    * All classes that inherit [InstanceMock] will automatically create a companion object and implement this interface,
    * therefore, this interface should not be implemented manually.
    *
-   * @author 凛 (RinOrz)
+   * @author RinOrz
    */
   interface Synthetic<T : Any> {
 
@@ -136,7 +136,7 @@ interface InstanceMock<T : Any> {
 /**
  * Used to mock a class that exists in the run time but cannot be accessed directly.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  * @see InstanceMock<T: Any>
  */
 typealias InstanceMoсk = InstanceMock<Any>

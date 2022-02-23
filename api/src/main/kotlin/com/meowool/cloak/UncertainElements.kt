@@ -34,7 +34,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * TODO Example
  *
  * @param id The identifier used to distinguish when replacing, which should be unique in application.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @CompileOnly fun <T : Any> uncertainType(id: String): Type<T> = compilerImplementation()
 
@@ -47,7 +47,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * TODO Example
  *
  * @param id The identifier used to distinguish when replacing, which should be unique in application.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @JvmName("uncertainAnyType")
 @CompileOnly fun uncertainType(id: String): Type<Any> = compilerImplementation()
@@ -64,7 +64,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *   suppose want to reflect a field with an uncertain name, the id can be the class name of the field plus the
  *   possible field name.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see get::name
  * @see set::name
@@ -84,7 +84,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *   suppose want to reflect a method with an uncertain name, the id can be the class name of the method plus the
  *   possible method name.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see call::name
  * @see methodCall::name
@@ -106,7 +106,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @param possibleTypes Multiple entries of possible types, should be replaced with an accurate parameter type list
  *   according to their keys in the future. See [String.be].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see call::parameters
  * @see methodCall::parameters
@@ -133,7 +133,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @param possibleArguments Multiple entries of possible argument values, should be replaced with an accurate argument
  *   list according to their keys in the future. See [String.be].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  *
  * @see call::arguments
  * @see methodCall::arguments
@@ -153,7 +153,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * Note that this entry can only be constructed by the [String.be] function.
  *
  * @param E Represents a generic of a [Type] or nullable value.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @CompileOnly class UncertainEntry<E> @PublishedApi internal constructor()
 
@@ -166,6 +166,6 @@ import com.meowool.cloak.internal.compilerImplementation
  *
  * @receiver A key that distinguishes between different values during replacement.
  * @param value A nullable value represents a possible type or a possible argument value.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @CompileOnly infix fun <E> String.be(value: E?): UncertainEntry<E> = compilerImplementation()

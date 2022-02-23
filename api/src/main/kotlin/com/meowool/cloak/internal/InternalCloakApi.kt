@@ -23,7 +23,7 @@ package com.meowool.cloak.internal
 /**
  * Used to mark APIs that are not available externally.
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @RequiresOptIn(
   level = RequiresOptIn.Level.ERROR,

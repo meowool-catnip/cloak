@@ -64,7 +64,7 @@ import java.util.concurrent.TimeUnit
  * getDeclaredMethodWithStringCache                         true  thrpt    5   6123.770 ±    22.751  ops/ms
  * getDeclaredMethodWithStringCache                        false  thrpt    5   5891.994 ±    26.947  ops/ms
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 @State(Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)

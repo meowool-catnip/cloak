@@ -42,7 +42,7 @@ import com.meowool.cloak.builtin.types._short
 /**
  * Used to explicitly specify the [type] of [instance].
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 class ExplicitTypeInstance<T : Any> @PublishedApi internal constructor(val instance: T?, val type: Type<T>)
 
@@ -71,7 +71,7 @@ class ExplicitTypeInstance<T : Any> @PublishedApi internal constructor(val insta
  * )
  * ```
  *
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline fun <reified T : Any> T?.typed(actualType: Type<T> = T::class.type): ExplicitTypeInstance<T> =
   ExplicitTypeInstance(this, actualType)
@@ -80,7 +80,7 @@ inline fun <reified T : Any> T?.typed(actualType: Type<T> = T::class.type): Expl
  * Explicitly specify that the type of this byte instance is primitive type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Byte.primitiveTyped: ExplicitTypeInstance<Byte> get() = this.typed(_byte)
 
@@ -88,7 +88,7 @@ inline val Byte.primitiveTyped: ExplicitTypeInstance<Byte> get() = this.typed(_b
  * Explicitly specify that the type of this short instance is primitive type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Short.primitiveTyped: ExplicitTypeInstance<Short> get() = this.typed(_short)
 
@@ -96,7 +96,7 @@ inline val Short.primitiveTyped: ExplicitTypeInstance<Short> get() = this.typed(
  * Explicitly specify that the type of this int instance is primitive type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Int.primitiveTyped: ExplicitTypeInstance<Int> get() = this.typed(_int)
 
@@ -104,7 +104,7 @@ inline val Int.primitiveTyped: ExplicitTypeInstance<Int> get() = this.typed(_int
  * Explicitly specify that the type of this long instance is primitive type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Long.primitiveTyped: ExplicitTypeInstance<Long> get() = this.typed(_long)
 
@@ -112,7 +112,7 @@ inline val Long.primitiveTyped: ExplicitTypeInstance<Long> get() = this.typed(_l
  * Explicitly specify that the type of this float instance is primitive type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Float.primitiveTyped: ExplicitTypeInstance<Float> get() = this.typed(_float)
 
@@ -120,7 +120,7 @@ inline val Float.primitiveTyped: ExplicitTypeInstance<Float> get() = this.typed(
  * Explicitly specify that the type of this double instance is primitive type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Double.primitiveTyped: ExplicitTypeInstance<Double> get() = this.typed(_double)
 
@@ -128,7 +128,7 @@ inline val Double.primitiveTyped: ExplicitTypeInstance<Double> get() = this.type
  * Explicitly specify that the type of this char instance is primitive type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Char.primitiveTyped: ExplicitTypeInstance<Char> get() = this.typed(_char)
 
@@ -136,7 +136,7 @@ inline val Char.primitiveTyped: ExplicitTypeInstance<Char> get() = this.typed(_c
  * Explicitly specify that the type of this boolean instance is primitive type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Boolean.primitiveTyped: ExplicitTypeInstance<Boolean> get() = this.typed(_boolean)
 
@@ -144,7 +144,7 @@ inline val Boolean.primitiveTyped: ExplicitTypeInstance<Boolean> get() = this.ty
  * Explicitly specify that the type of this byte instance is object (boxed) type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Byte.objectTyped: ExplicitTypeInstance<Byte> get() = this.typed(_Byte)
 
@@ -152,7 +152,7 @@ inline val Byte.objectTyped: ExplicitTypeInstance<Byte> get() = this.typed(_Byte
  * Explicitly specify that the type of this short instance is object (boxed) type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Short.objectTyped: ExplicitTypeInstance<Short> get() = this.typed(_Short)
 
@@ -160,7 +160,7 @@ inline val Short.objectTyped: ExplicitTypeInstance<Short> get() = this.typed(_Sh
  * Explicitly specify that the type of this int instance is object (boxed) type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Int.objectTyped: ExplicitTypeInstance<Int> get() = this.typed(_Integer)
 
@@ -168,7 +168,7 @@ inline val Int.objectTyped: ExplicitTypeInstance<Int> get() = this.typed(_Intege
  * Explicitly specify that the type of this long instance is object (boxed) type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Long.objectTyped: ExplicitTypeInstance<Long> get() = this.typed(_Long)
 
@@ -176,7 +176,7 @@ inline val Long.objectTyped: ExplicitTypeInstance<Long> get() = this.typed(_Long
  * Explicitly specify that the type of this float instance is object (boxed) type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Float.objectTyped: ExplicitTypeInstance<Float> get() = this.typed(_Float)
 
@@ -184,7 +184,7 @@ inline val Float.objectTyped: ExplicitTypeInstance<Float> get() = this.typed(_Fl
  * Explicitly specify that the type of this double instance is object (boxed) type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Double.objectTyped: ExplicitTypeInstance<Double> get() = this.typed(_Double)
 
@@ -192,7 +192,7 @@ inline val Double.objectTyped: ExplicitTypeInstance<Double> get() = this.typed(_
  * Explicitly specify that the type of this char instance is object (boxed) type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Char.objectTyped: ExplicitTypeInstance<Char> get() = this.typed(_Character)
 
@@ -200,6 +200,6 @@ inline val Char.objectTyped: ExplicitTypeInstance<Char> get() = this.typed(_Char
  * Explicitly specify that the type of this boolean instance is object (boxed) type.
  *
  * @see Any.typed
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 inline val Boolean.objectTyped: ExplicitTypeInstance<Boolean> get() = this.typed(_Boolean)

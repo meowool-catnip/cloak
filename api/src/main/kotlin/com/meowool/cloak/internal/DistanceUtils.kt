@@ -46,7 +46,7 @@ import java.lang.Long as LongObject
 import java.lang.Short as ShortObject
 
 /**
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 internal object MatchingDistance {
   const val Min = 0
@@ -64,7 +64,7 @@ internal object MatchingDistance {
  * Calculates the distance between the [passed] class and the [declared] class.
  *
  * @return The better the match between classes, the smaller the result distance.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 internal fun calculateDistanceBetween(
   passed: Class<*>?,
@@ -160,7 +160,7 @@ internal fun calculateDistanceBetween(
  * Calculates the distance between the [passed] parameter types and the [declared] parameter types.
  *
  * @return The better the match between classes, the smaller the result distance.
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 internal fun calculateDistanceBetween(
   passed: Array<out Class<*>?>,

@@ -41,7 +41,7 @@ import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Test
 
 /**
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 class JavaMemberUtilsTests {
   @Test fun `match the best constructor`() {

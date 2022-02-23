@@ -51,7 +51,7 @@ import kotlin.reflect.KClass
 import com.squareup.kotlinpoet.CodeBlock.Companion.of as codeOf
 
 /**
- * @author 凛 (RinOrz)
+ * @author RinOrz
  */
 open class TypesGenerator(private val platform: Platform) {
 
