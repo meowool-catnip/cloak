@@ -123,6 +123,9 @@ public final class com/meowool/cloak/internal/ArrayUtilsKt {
 	public static final fun allIndexed ([Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Z
 }
 
+public abstract interface annotation class com/meowool/cloak/internal/CompileOnly : java/lang/annotation/Annotation {
+}
+
 public final class com/meowool/cloak/internal/CompilerKt {
 	public static final fun compilerImplementation ()Ljava/lang/Void;
 }
@@ -137,6 +140,9 @@ public final class com/meowool/cloak/internal/ReflectionFactory {
 	public final fun fieldToString (Ljava/lang/Class;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/String;
 	public final fun newInstance (Ljava/lang/Class;[Ljava/lang/Object;[Ljava/lang/Class;)Ljava/lang/Object;
 	public final fun set (Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Class;)V
+}
+
+public abstract interface annotation class com/meowool/cloak/internal/RequiresInitializerCall : java/lang/annotation/Annotation {
 }
 
 public final class com/meowool/cloak/internal/ResolverKt {
