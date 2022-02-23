@@ -19,7 +19,7 @@ https://github.com/meowool-catnip/cloak/blob/02cfcdf7f2cec9633d5af4df9e2861b6ad1
 
 > For Intellij / Android Studio:
 
-You can open the Gradle panel in `View > Tools Windows > Gradle` , and then find and expand `Tasks > benchmark`, finally just double-click `benchmark`, which will run and print the benchmark results  in the `Run` window of your IDE.
+You can open the Gradle panel in `View > Tools Windows > Gradle` , and then find and expand `Tasks > benchmark`, finally just double-click `benchmark`, which will run and print the benchmark results in the `Run` panel of your IDE.
 
 > For Terminal:
 
