@@ -67,7 +67,7 @@ import com.meowool.cloak.internal.resolveInstance
  *
  * @author 凛 (RinOrz)
  *
- * @see Type.constructor
+ * @see Type.constructorNew
  */
 @Throws(NoSuchMethodException::class)
 fun <T : Any> Type<T>.new(
@@ -119,7 +119,7 @@ fun <T : Any> Type<T>.new(
  *
  * @author 凛 (RinOrz)
  *
- * @see InstanceMock.Synthetic.constructor
+ * @see InstanceMock.Synthetic.constructorNew
  */
 @Throws(NoSuchMethodException::class)
 inline fun <T : Any> InstanceMock.Synthetic<T>.new(

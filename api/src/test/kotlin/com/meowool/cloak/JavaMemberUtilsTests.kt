@@ -138,7 +138,7 @@ class JavaMemberUtilsTests {
       FieldsParent::class.java.getDeclaredField("baseBooleanField")
     )
     FieldsContainer::class.java.matchBestField(null, Boolean::class.javaObjectType).shouldNotBeNull().apply {
-      // For performance reasons, if the class is found, the parent class will not be traversed,
+      // For performance reasons, if the class is found, the super class will not be traversed,
       shouldNotBe(FieldsParent::class.java.getDeclaredField("baseBooleanObjectField"))
       // therefore, the result is the earliest matched field that type is boolean
       shouldBe(FieldsContainer::class.java.getDeclaredField("booleanField"))

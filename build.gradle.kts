@@ -39,9 +39,10 @@ publication.data {
 }
 
 subprojects {
+  publication.data.artifactId = rootProject.name + "-" + name
+  repositories.mavenLocal()
   optIn("com.meowool.cloak.internal.InternalCloakApi", "kotlin.RequiresOptIn")
   dokka(DokkaFormat.Html) { outputDirectory.set(rootDir.resolve("docs/apis")) }
-  repositories.mavenLocal()
 }
 
 registerLogic {

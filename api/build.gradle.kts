@@ -44,7 +44,7 @@ kotlin {
 }
 
 dependencies {
-  implementationProject(Projects.Built.Ins)
+  apiProject(Projects.Built.Ins)
   testImplementationOf(
     kotlin("test"),
     Libs.Kotest.Assertions.Core,

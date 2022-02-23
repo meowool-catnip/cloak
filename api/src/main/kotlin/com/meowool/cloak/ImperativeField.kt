@@ -54,7 +54,7 @@ import com.meowool.cloak.internal.ReflectionFactory
  * @receiver An instance of the class where the field to be got is located (aka. field's parent class).
  * @param name The name of the field to get.
  * @param type The value type of the field to get, the default is [T].
- * @param parent The class type where the field to get is located, the default is the type of the receiver instance.
+ * @param holder The class type where the field to get is located, the default is the type of the receiver instance.
  *
  * @author 凛 (RinOrz)
  *
@@ -64,8 +64,8 @@ import com.meowool.cloak.internal.ReflectionFactory
 inline fun <reified T : Any> Any.get(
   name: String?,
   type: Type<T>? = Type(T::class.java),
-  parent: Type<*> = this.javaClass.type,
-): T = requireNotNull(getNullable(name, type, parent))
+  holder: Type<*> = this.javaClass.type,
+): T = requireNotNull(getNullable(name, type, holder))
 
 /**
  * Gets (reflects) the nullable value of the best matching field in this [Any] instance.
@@ -99,7 +99,7 @@ inline fun <reified T : Any> Any.get(
  * @receiver An instance of the class where the field to be got is located (aka. field's parent class).
  * @param name The name of the field to get.
  * @param type The value type of the field to get, the default is [T].
- * @param parent The class type where the field to get is located, the default is the type of the receiver instance.
+ * @param holder The class type where the field to get is located, the default is the type of the receiver instance.
  *
  * @author 凛 (RinOrz)
  *
@@ -109,8 +109,8 @@ inline fun <reified T : Any> Any.get(
 inline fun <reified T : Any> Any.getNullable(
   name: String?,
   type: Type<T>? = Type(T::class.java),
-  parent: Type<*> = this.javaClass.type,
-): T? = ReflectionFactory.get(clasѕ = parent.javaClass, instance = this, name, type?.javaClass)
+  holder: Type<*> = this.javaClass.type,
+): T? = ReflectionFactory.get(clasѕ = holder.javaClass, instance = this, name, type?.javaClass)
 
 /**
  * Sets (reflects) the [value] of the best matching field in this [Any] instance.
@@ -149,7 +149,7 @@ inline fun <reified T : Any> Any.getNullable(
  * @param name The name of the field to set.
  * @param value The new value to be set to the field.
  * @param type The value type of the field to set, the default is [T].
- * @param parent The class type where the field to set is located, the default is the type of the receiver instance.
+ * @param holder The class type where the field to set is located, the default is the type of the receiver instance.
  *
  * @author 凛 (RinOrz)
  *
@@ -160,9 +160,9 @@ inline fun <reified T : Any> Any.set(
   name: String?,
   value: T,
   type: Type<T>? = Type(T::class.java),
-  parent: Type<*> = this.javaClass.type,
+  holder: Type<*> = this.javaClass.type,
 ): T = value.also {
-  ReflectionFactory.set(clasѕ = parent.javaClass, instance = this, name, value, type?.javaClass)
+  ReflectionFactory.set(clasѕ = holder.javaClass, instance = this, name, value, type?.javaClass)
 }
 
 /**
@@ -202,7 +202,7 @@ inline fun <reified T : Any> Any.set(
  * @param name The name of the field to set.
  * @param value The new value to be set to the field.
  * @param type The value type of the field to set, the default is [T].
- * @param parent The class type where the field to set is located, the default is the type of the receiver instance.
+ * @param holder The class type where the field to set is located, the default is the type of the receiver instance.
  *
  * @author 凛 (RinOrz)
  *
@@ -213,8 +213,8 @@ inline fun <reified T : Any> Any.set(
   name: String?,
   value: T?,
   type: Type<T>? = Type(T::class.java),
-  parent: Type<*> = this.javaClass.type,
-): Unit = ReflectionFactory.set(clasѕ = parent.javaClass, instance = this, name, value, type?.javaClass)
+  holder: Type<*> = this.javaClass.type,
+): Unit = ReflectionFactory.set(clasѕ = holder.javaClass, instance = this, name, value, type?.javaClass)
 
 /**
  * Gets (reflects) the value of the best matching static field in this [Type].

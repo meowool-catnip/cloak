@@ -161,7 +161,7 @@ fun <T> Class<T>.matchBestField(name: String?, type: Class<*>?): Field? {
         }
       }
       // For performance reasons,
-      //   the parent class will continue to be searched only when no matching field is found in current class.
+      //   the super class will continue to be searched only when no matching field is found in current class.
       if (closest == null) currentClass = currentClass.superclass else break
     }
     closest
@@ -232,7 +232,7 @@ fun <T> Class<T>.matchBestMethod(name: String?, vararg parameters: Class<*>?, re
         }
       }
       // For performance reasons,
-      //   the parent class will continue to be searched only when no matching method is found in current class.
+      //   the super class will continue to be searched only when no matching method is found in current class.
       if (closest == null) currentClass = currentClass.superclass else break
     }
     closest

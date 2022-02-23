@@ -25,8 +25,9 @@ package com.meowool.cloak.internal
  *
  * @author 凛 (RinOrz)
  */
+@InternalCloakApi
 @Retention(AnnotationRetention.SOURCE)
-internal annotation class CompileOnly
+annotation class CompileOnly
 
 @PublishedApi internal fun compilerImplementation(): Nothing = throw UnsupportedOperationException(
   "Implemented by cloak compiler plugin, " +

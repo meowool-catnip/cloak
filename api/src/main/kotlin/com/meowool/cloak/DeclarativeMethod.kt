@@ -23,6 +23,7 @@
 package com.meowool.cloak
 
 import com.meowool.cloak.internal.CompileOnly
+import com.meowool.cloak.internal.RequiresInitializerCall
 import com.meowool.cloak.internal.compilerImplementation
 
 /**
@@ -64,7 +65,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *   the default is the inference of the arguments instances (similar to `args.map { it?.javaClass }`).
  *
  * @param returns The return type of the method to be reflected, the default is [R] (that is `R::class.type`).
- * @param parent The class type where the method to be reflected is located, the default is the type of the
+ * @param holder The class type where the method to be reflected is located, the default is the type of the
  *   receiver instance.
  *
  * @author 凛 (RinOrz)
@@ -73,12 +74,13 @@ import com.meowool.cloak.internal.compilerImplementation
  * @see callVoid
  * @see callNullable
  */
+@RequiresInitializerCall
 @CompileOnly fun <R> Any.methodCall(
   name: String? = compilerImplementation(),
   arguments: Array<*> = compilerImplementation(),
   parameters: Array<Type<*>?>? = null,
   returns: Type<*>? = compilerImplementation(),
-  parent: Type<*> = this.javaClass.type,
+  holder: Type<*> = this.javaClass.type,
 ): R = compilerImplementation()
 
 /**
@@ -127,6 +129,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @see Type.callStaticVoid
  * @see Type.callStaticNullable
  */
+@RequiresInitializerCall
 @CompileOnly fun <R> Type<*>.staticMethodCall(
   name: String? = compilerImplementation(),
   arguments: Array<*> = compilerImplementation(),
@@ -182,6 +185,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @see InstanceMock.Synthetic.callStaticVoid
  * @see InstanceMock.Synthetic.callStaticNullable
  */
+@RequiresInitializerCall
 @CompileOnly fun <R> InstanceMock.Synthetic<*>.staticMethodCall(
   name: String? = compilerImplementation(),
   arguments: Array<*> = compilerImplementation(),

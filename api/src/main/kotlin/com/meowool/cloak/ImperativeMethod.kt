@@ -72,7 +72,7 @@ import com.meowool.cloak.internal.resolveInstance
  *   the default is the inference of the arguments instances (similar to `args.map { it?.javaClass }`).
  *
  * @param returns The return type of the method to call, the default is [R].
- * @param parent The class type where the method to call is located, the default is the type of the receiver instance.
+ * @param holder The class type where the method to call is located, the default is the type of the receiver instance.
  *
  * @author 凛 (RinOrz)
  *
@@ -84,8 +84,8 @@ inline fun <reified R : Any> Any.call(
   vararg arguments: Any?,
   parameters: Array<Type<*>?>? = null,
   returns: Type<R>? = Type(R::class.java),
-  parent: Type<*> = this.javaClass.type,
-): R = requireNotNull(callNullable(name, *arguments, parameters = parameters, returns = returns, parent = parent))
+  holder: Type<*> = this.javaClass.type,
+): R = requireNotNull(callNullable(name, *arguments, parameters = parameters, returns = returns, holder = holder))
 
 /**
  * Calls (reflects) the best matching method in this [Any] instance and returns its result nullable value.
@@ -129,7 +129,7 @@ inline fun <reified R : Any> Any.call(
  *   the default is the inference of the arguments instances (similar to `args.map { it?.javaClass }`).
  *
  * @param returns The return type of the method to call, the default is [R].
- * @param parent The class type where the method to call is located, the default is the type of the receiver instance.
+ * @param holder The class type where the method to call is located, the default is the type of the receiver instance.
  *
  * @author 凛 (RinOrz)
  *
@@ -141,9 +141,9 @@ inline fun <reified R : Any> Any.callNullable(
   vararg arguments: Any?,
   parameters: Array<Type<*>?>? = null,
   returns: Type<R>? = Type(R::class.java),
-  parent: Type<*> = this.javaClass.type,
+  holder: Type<*> = this.javaClass.type,
 ): R? = ReflectionFactory.call(
-  clasѕ = parent.javaClass,
+  clasѕ = holder.javaClass,
   instance = this,
   name = name,
   arguments = arguments.fastMap(Any?::resolveInstance),
@@ -188,7 +188,7 @@ inline fun <reified R : Any> Any.callNullable(
  *   it should be consistent with the number of [arguments] (except for function with varargs).
  *   the default is the inference of the arguments instances (similar to `args.map { it?.javaClass }`).
  *
- * @param parent The class type where the method to call is located, the default is the type of the receiver instance.
+ * @param holder The class type where the method to call is located, the default is the type of the receiver instance.
  *
  * @author 凛 (RinOrz)
  *
@@ -199,9 +199,9 @@ inline fun Any.callVoid(
   name: String?,
   vararg arguments: Any?,
   parameters: Array<Type<*>?>? = null,
-  parent: Type<*> = this.javaClass.type,
+  holder: Type<*> = this.javaClass.type,
 ) {
-  callNullable(name, *arguments, parameters = parameters, returns = _void, parent = parent)
+  callNullable(name, *arguments, parameters = parameters, returns = _void, holder = holder)
 }
 
 /**
@@ -310,7 +310,7 @@ inline fun Type<*>.callStaticVoid(
  * In addition, this function also supports use with [ExplicitTypeInstance] and [InstanceMock], for the example,
  * see [call], this usage is similar to that.
  *
- * @receiver A mocked class that mocks the class type where the static method to be set is located
+ * @receiver A mocked class that mocks the class type where the static method to be called is located
  *   (aka. static method's parent class).
  * @param name The name of the static method to call.
  * @param arguments The arguments to pass to the static method to call.
@@ -341,7 +341,7 @@ inline fun <reified R : Any> InstanceMock.Synthetic<*>.callStatic(
  * In addition, this function also supports use with [ExplicitTypeInstance] and [InstanceMock], for the example,
  * see [callNullable], this usage is similar to that.
  *
- * @receiver A mocked class that mocks the class type where the static method to be set is located
+ * @receiver A mocked class that mocks the class type where the static method to be called is located
  *   (aka. static method's parent class).
  * @param name The name of the static method to call.
  * @param arguments The arguments to pass to the static method to call.
@@ -380,7 +380,7 @@ inline fun <reified R : Any> InstanceMock.Synthetic<*>.callStaticNullable(
  * In addition, this function also supports use with [ExplicitTypeInstance] and [InstanceMock], for the example,
  * see [callVoid], this usage is similar to that.
  *
- * @receiver A mocked class that mocks the class type where the static method to be set is located
+ * @receiver A mocked class that mocks the class type where the static method to be called is located
  *   (aka. static method's parent class).
  * @param name The name of the static method to call.
  * @param arguments The arguments to pass to the static method to call.

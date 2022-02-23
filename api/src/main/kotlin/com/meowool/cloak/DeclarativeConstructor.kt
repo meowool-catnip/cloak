@@ -23,6 +23,7 @@
 package com.meowool.cloak
 
 import com.meowool.cloak.internal.CompileOnly
+import com.meowool.cloak.internal.RequiresInitializerCall
 import com.meowool.cloak.internal.compilerImplementation
 
 /**
@@ -89,6 +90,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *
  * @see Type.new
  */
+@RequiresInitializerCall
 @CompileOnly fun <T : Any> Type<T>.constructorNew(
   arguments: Array<*> = compilerImplementation(),
   parameters: Array<Type<*>?>? = null,
@@ -159,6 +161,7 @@ import com.meowool.cloak.internal.compilerImplementation
  *
  * @see InstanceMock.Synthetic.new
  */
+@RequiresInitializerCall
 @CompileOnly fun <T : Any> InstanceMock.Synthetic<T>.constructorNew(
   arguments: Array<*> = compilerImplementation(),
   parameters: Array<Type<*>?>? = null,

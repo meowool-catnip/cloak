@@ -23,6 +23,7 @@
 package com.meowool.cloak
 
 import com.meowool.cloak.internal.CompileOnly
+import com.meowool.cloak.internal.RequiresInitializerCall
 import com.meowool.cloak.internal.compilerImplementation
 
 /**
@@ -52,7 +53,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @receiver An instance of the class where the field to be got is located (aka. field's parent class).
  * @param name The name of the field to be reflected, the default is used the name of the caller's declaration.
  * @param type The value type of the field to be reflected, the default is [T] (that is `T::class.type`).
- * @param parent The class type where the field to be reflected is located, the default is the type of the
+ * @param holder The class type where the field to be reflected is located, the default is the type of the
  *   receiver instance.
  *
  * @author 凛 (RinOrz)
@@ -61,10 +62,11 @@ import com.meowool.cloak.internal.compilerImplementation
  * @see get
  * @see getNullable
  */
+@RequiresInitializerCall
 @CompileOnly fun <T> Any.field(
   name: String? = compilerImplementation(),
   type: Type<*>? = compilerImplementation(),
-  parent: Type<*> = this.javaClass.type,
+  holder: Type<*> = this.javaClass.type,
 ): T = compilerImplementation()
 
 /**
@@ -120,6 +122,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @see Type.getStatic
  * @see Type.getStaticNullable
  */
+@RequiresInitializerCall
 @CompileOnly fun <T> Type<*>.staticField(
   name: String? = compilerImplementation(),
   type: Type<*>? = compilerImplementation(),
@@ -177,6 +180,7 @@ import com.meowool.cloak.internal.compilerImplementation
  * @see InstanceMock.Synthetic.getStatic
  * @see InstanceMock.Synthetic.getStaticNullable
  */
+@RequiresInitializerCall
 @CompileOnly fun <T> InstanceMock.Synthetic<*>.staticField(
   name: String? = compilerImplementation(),
   type: Type<*>? = compilerImplementation(),
