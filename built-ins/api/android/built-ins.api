@@ -1,0 +1,188 @@
+public final class com/meowool/cloak/Type {
+	public static final synthetic fun box-impl (Ljava/lang/Object;)Lcom/meowool/cloak/Type;
+	public static fun constructor-impl (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public static final fun getDescriptor-impl (Ljava/lang/Object;)Ljava/lang/String;
+	public static final fun getJavaClass-impl (Ljava/lang/Object;)Ljava/lang/Class;
+	public static final fun getKotlinClass-impl (Ljava/lang/Object;)Lkotlin/reflect/KClass;
+	public static final fun getQualifiedName-impl (Ljava/lang/Object;)Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/Object;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/Object;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/Object;
+}
+
+public final class com/meowool/cloak/TypeKt {
+	public static final fun AnyType (Ljava/lang/String;)Ljava/lang/Object;
+	public static final fun getType (Ljava/lang/Class;)Ljava/lang/Object;
+	public static final fun getType (Ljava/lang/String;)Ljava/lang/Object;
+	public static final fun getType (Lkotlin/reflect/KClass;)Ljava/lang/Object;
+}
+
+public final class com/meowool/cloak/builtin/types/BuiltInTypes {
+	public static final fun get_AbsListView ()Ljava/lang/Object;
+	public static final fun get_ActionBar ()Ljava/lang/Object;
+	public static final fun get_ActionBarX ()Ljava/lang/Object;
+	public static final fun get_Activity ()Ljava/lang/Object;
+	public static final fun get_ActivityResult ()Ljava/lang/Object;
+	public static final fun get_Adapter ()Ljava/lang/Object;
+	public static final fun get_AlertDialog ()Ljava/lang/Object;
+	public static final fun get_AlertDialogX ()Ljava/lang/Object;
+	public static final fun get_AppCompatActivity ()Ljava/lang/Object;
+	public static final fun get_AppCompatDelegate ()Ljava/lang/Object;
+	public static final fun get_AppCompatDialog ()Ljava/lang/Object;
+	public static final fun get_AppCompatDialogFragment ()Ljava/lang/Object;
+	public static final fun get_AppComponentFactory ()Ljava/lang/Object;
+	public static final fun get_ApplicationInfo ()Ljava/lang/Object;
+	public static final fun get_ArrayList ()Ljava/lang/Object;
+	public static final fun get_AssetManager ()Ljava/lang/Object;
+	public static final fun get_AttributeSet ()Ljava/lang/Object;
+	public static final fun get_BaseAdapter ()Ljava/lang/Object;
+	public static final fun get_Bitmap ()Ljava/lang/Object;
+	public static final fun get_Boolean ()Ljava/lang/Object;
+	public static final fun get_BooleanArray ()Ljava/lang/Object;
+	public static final fun get_BroadcastReceiver ()Ljava/lang/Object;
+	public static final fun get_Bundle ()Ljava/lang/Object;
+	public static final fun get_Button ()Ljava/lang/Object;
+	public static final fun get_Byte ()Ljava/lang/Object;
+	public static final fun get_ByteArray ()Ljava/lang/Object;
+	public static final fun get_CharSequence ()Ljava/lang/Object;
+	public static final fun get_Character ()Ljava/lang/Object;
+	public static final fun get_CharacterArray ()Ljava/lang/Object;
+	public static final fun get_CheckBox ()Ljava/lang/Object;
+	public static final fun get_Cloneable ()Ljava/lang/Object;
+	public static final fun get_Collection ()Ljava/lang/Object;
+	public static final fun get_ColorStateList ()Ljava/lang/Object;
+	public static final fun get_Comparable ()Ljava/lang/Object;
+	public static final fun get_ComponentActivity ()Ljava/lang/Object;
+	public static final fun get_ContentProvider ()Ljava/lang/Object;
+	public static final fun get_ContentResolver ()Ljava/lang/Object;
+	public static final fun get_ContentValues ()Ljava/lang/Object;
+	public static final fun get_Context ()Ljava/lang/Object;
+	public static final fun get_ContextWrapper ()Ljava/lang/Object;
+	public static final fun get_CoreAppComponentActivity ()Ljava/lang/Object;
+	public static final fun get_CoreComponentFactory ()Ljava/lang/Object;
+	public static final fun get_Dialog ()Ljava/lang/Object;
+	public static final fun get_DialogFragment ()Ljava/lang/Object;
+	public static final fun get_DialogFragmentX ()Ljava/lang/Object;
+	public static final fun get_DialogInterface ()Ljava/lang/Object;
+	public static final fun get_Double ()Ljava/lang/Object;
+	public static final fun get_DoubleArray ()Ljava/lang/Object;
+	public static final fun get_Drawable ()Ljava/lang/Object;
+	public static final fun get_EdgeEffect ()Ljava/lang/Object;
+	public static final fun get_EditText ()Ljava/lang/Object;
+	public static final fun get_Editable ()Ljava/lang/Object;
+	public static final fun get_Enum ()Ljava/lang/Object;
+	public static final fun get_File ()Ljava/lang/Object;
+	public static final fun get_Float ()Ljava/lang/Object;
+	public static final fun get_FloatArray ()Ljava/lang/Object;
+	public static final fun get_Fragment ()Ljava/lang/Object;
+	public static final fun get_FragmentActivityX ()Ljava/lang/Object;
+	public static final fun get_FragmentManager ()Ljava/lang/Object;
+	public static final fun get_FragmentX ()Ljava/lang/Object;
+	public static final fun get_FrameLayout ()Ljava/lang/Object;
+	public static final fun get_FrameLayout_LayoutParams ()Ljava/lang/Object;
+	public static final fun get_HashMap ()Ljava/lang/Object;
+	public static final fun get_HashSet ()Ljava/lang/Object;
+	public static final fun get_ImageButton ()Ljava/lang/Object;
+	public static final fun get_ImageView ()Ljava/lang/Object;
+	public static final fun get_Integer ()Ljava/lang/Object;
+	public static final fun get_IntegerArray ()Ljava/lang/Object;
+	public static final fun get_Intent ()Ljava/lang/Object;
+	public static final fun get_Iterable ()Ljava/lang/Object;
+	public static final fun get_Iterator ()Ljava/lang/Object;
+	public static final fun get_KeyEvent ()Ljava/lang/Object;
+	public static final fun get_LayoutInflater ()Ljava/lang/Object;
+	public static final fun get_LayoutInflater_Factory ()Ljava/lang/Object;
+	public static final fun get_LayoutInflater_Factory2 ()Ljava/lang/Object;
+	public static final fun get_LayoutInflater_Filter ()Ljava/lang/Object;
+	public static final fun get_LinearLayout ()Ljava/lang/Object;
+	public static final fun get_LinearLayout_LayoutParams ()Ljava/lang/Object;
+	public static final fun get_LinkedHashMap ()Ljava/lang/Object;
+	public static final fun get_LinkedHashSet ()Ljava/lang/Object;
+	public static final fun get_List ()Ljava/lang/Object;
+	public static final fun get_ListIterator ()Ljava/lang/Object;
+	public static final fun get_ListView ()Ljava/lang/Object;
+	public static final fun get_Long ()Ljava/lang/Object;
+	public static final fun get_LongArray ()Ljava/lang/Object;
+	public static final fun get_Map ()Ljava/lang/Object;
+	public static final fun get_Map_Entry ()Ljava/lang/Object;
+	public static final fun get_Menu ()Ljava/lang/Object;
+	public static final fun get_MenuInflater ()Ljava/lang/Object;
+	public static final fun get_MenuItem ()Ljava/lang/Object;
+	public static final fun get_MotionEvent ()Ljava/lang/Object;
+	public static final fun get_Number ()Ljava/lang/Object;
+	public static final fun get_Object ()Ljava/lang/Object;
+	public static final fun get_Observer ()Ljava/lang/Object;
+	public static final fun get_PackageInfo ()Ljava/lang/Object;
+	public static final fun get_Paint ()Ljava/lang/Object;
+	public static final fun get_Parcelable ()Ljava/lang/Object;
+	public static final fun get_PopupWindow ()Ljava/lang/Object;
+	public static final fun get_RandomAccess ()Ljava/lang/Object;
+	public static final fun get_RelativeLayout ()Ljava/lang/Object;
+	public static final fun get_RelativeLayout_LayoutParams ()Ljava/lang/Object;
+	public static final fun get_RemoteViews ()Ljava/lang/Object;
+	public static final fun get_ScrollView ()Ljava/lang/Object;
+	public static final fun get_Serializable ()Ljava/lang/Object;
+	public static final fun get_Service ()Ljava/lang/Object;
+	public static final fun get_Set ()Ljava/lang/Object;
+	public static final fun get_Short ()Ljava/lang/Object;
+	public static final fun get_ShortArray ()Ljava/lang/Object;
+	public static final fun get_Spannable ()Ljava/lang/Object;
+	public static final fun get_Spinner ()Ljava/lang/Object;
+	public static final fun get_String ()Ljava/lang/Object;
+	public static final fun get_StringArray ()Ljava/lang/Object;
+	public static final fun get_TextView ()Ljava/lang/Object;
+	public static final fun get_Throwable ()Ljava/lang/Object;
+	public static final fun get_Toast ()Ljava/lang/Object;
+	public static final fun get_Toolbar ()Ljava/lang/Object;
+	public static final fun get_Typeface ()Ljava/lang/Object;
+	public static final fun get_Vector ()Ljava/lang/Object;
+	public static final fun get_View ()Ljava/lang/Object;
+	public static final fun get_ViewGroup ()Ljava/lang/Object;
+	public static final fun get_ViewGroup_LayoutParams ()Ljava/lang/Object;
+	public static final fun get_ViewGroup_MarginLayoutParams ()Ljava/lang/Object;
+	public static final fun get_View_OnClickListener ()Ljava/lang/Object;
+	public static final fun get_View_OnContextClickListener ()Ljava/lang/Object;
+	public static final fun get_View_OnCreateContextMenuListener ()Ljava/lang/Object;
+	public static final fun get_View_OnDragListener ()Ljava/lang/Object;
+	public static final fun get_View_OnFocusChangeListener ()Ljava/lang/Object;
+	public static final fun get_View_OnGenericMotionListener ()Ljava/lang/Object;
+	public static final fun get_View_OnHoverListener ()Ljava/lang/Object;
+	public static final fun get_View_OnKeyListener ()Ljava/lang/Object;
+	public static final fun get_View_OnLayoutChangeListener ()Ljava/lang/Object;
+	public static final fun get_View_OnLongClickListener ()Ljava/lang/Object;
+	public static final fun get_View_OnScrollChangeListener ()Ljava/lang/Object;
+	public static final fun get_View_OnTouchListener ()Ljava/lang/Object;
+	public static final fun get_Void ()Ljava/lang/Object;
+	public static final fun get_Window ()Ljava/lang/Object;
+	public static final fun get_WindowManager ()Ljava/lang/Object;
+	public static final fun get_boolean ()Ljava/lang/Object;
+	public static final fun get_booleanArray ()Ljava/lang/Object;
+	public static final fun get_byte ()Ljava/lang/Object;
+	public static final fun get_byteArray ()Ljava/lang/Object;
+	public static final fun get_char ()Ljava/lang/Object;
+	public static final fun get_charArray ()Ljava/lang/Object;
+	public static final fun get_double ()Ljava/lang/Object;
+	public static final fun get_doubleArray ()Ljava/lang/Object;
+	public static final fun get_float ()Ljava/lang/Object;
+	public static final fun get_floatArray ()Ljava/lang/Object;
+	public static final fun get_int ()Ljava/lang/Object;
+	public static final fun get_intArray ()Ljava/lang/Object;
+	public static final fun get_long ()Ljava/lang/Object;
+	public static final fun get_longArray ()Ljava/lang/Object;
+	public static final fun get_short ()Ljava/lang/Object;
+	public static final fun get_shortArray ()Ljava/lang/Object;
+	public static final fun get_void ()Ljava/lang/Object;
+}
+
+public final class com/meowool/cloak/builtins/BuildConfig {
+	public static final field BUILD_TYPE Ljava/lang/String;
+	public static final field DEBUG Z
+	public static final field LIBRARY_PACKAGE_NAME Ljava/lang/String;
+	public fun <init> ()V
+}
+

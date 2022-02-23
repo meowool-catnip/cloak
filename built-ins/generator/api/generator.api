@@ -1,0 +1,37 @@
+public final class ClassTest {
+	public fun <init> ()V
+	public final fun testNames ()V
+}
+
+public final class builtin/AndroidTypesGenerator : builtin/TypesGenerator {
+	public fun <init> ()V
+	public final fun generateAndroidXTypes ()V
+	public final fun generateSystemHiddenTypes ()V
+	public final fun generateSystemTypes ()V
+}
+
+public final class builtin/JvmTypesGenerator : builtin/TypesGenerator {
+	public fun <init> ()V
+	public final fun generateJdkTypes ()V
+}
+
+public class builtin/TypesGenerator {
+	public fun <init> (Lbuiltin/TypesGenerator$Platform;)V
+	protected final fun generateTypes (Ljava/lang/String;[Ljava/lang/Object;)V
+}
+
+public final class builtin/TypesGenerator$Platform : java/lang/Enum {
+	public static final field Android Lbuiltin/TypesGenerator$Platform;
+	public static final field Jvm Lbuiltin/TypesGenerator$Platform;
+	public final fun getPath ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lbuiltin/TypesGenerator$Platform;
+	public static fun values ()[Lbuiltin/TypesGenerator$Platform;
+}
+
+public final class com/meowool/cloak/BuildConfig {
+	public static final field BUILD_TYPE Ljava/lang/String;
+	public static final field DEBUG Z
+	public static final field LIBRARY_PACKAGE_NAME Ljava/lang/String;
+	public fun <init> ()V
+}
+

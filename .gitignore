@@ -6,6 +6,8 @@
 !/.idea/inspectionProfiles/
 !/.idea/inspectionProfiles/**
 !/.idea/.gitignore
+!/.idea/compiler.xml
+!/.idea/kotlinc.xml
 
 # Gradle exclude paths
 /.gradle/
